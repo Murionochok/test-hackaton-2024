@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net" modified="2024-04-24T10:28:42.812Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="TcM5dQUb_AEdYeDuTIoZ" version="24.2.7" type="device" pages="2">
+  <diagram name="Technologies" id="qeAG5nPs3FD4cw9WKKbb">
+    <mxGraphModel dx="1830" dy="1060" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="prHDb3N5QVq9_a-O2LLw-2" target="prHDb3N5QVq9_a-O2LLw-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-2" value="Front - end" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="245" y="40" width="390" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-5" value="" style="group" vertex="1" connectable="0" parent="prHDb3N5QVq9_a-O2LLw-2">
+          <mxGeometry x="60" y="40" width="269" height="269" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-5">
+          <mxGeometry width="269" height="269" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-4" value="&lt;b&gt;Type Script&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-5">
+          <mxGeometry x="94.5" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-6" value="React" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-5">
+          <mxGeometry x="74.5" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-7" value="Redux" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-5">
+          <mxGeometry x="74.5" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-8" value="Axios" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-5">
+          <mxGeometry x="74.5" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-9" value="Back - end" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="480" width="400" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-10" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-9">
+          <mxGeometry x="60" y="45" width="270" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-11" value="C#" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-9">
+          <mxGeometry x="165" y="45" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-12" value="ASP.net" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-9">
+          <mxGeometry x="135" y="105" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-18" value="Entity Framework" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="prHDb3N5QVq9_a-O2LLw-9">
+          <mxGeometry x="135" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="prHDb3N5QVq9_a-O2LLw-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-17" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Microsoft SQL&lt;/b&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="10" y="580" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="prHDb3N5QVq9_a-O2LLw-20" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" target="prHDb3N5QVq9_a-O2LLw-17">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="700" as="sourcePoint" />
+            <mxPoint x="310" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="U8iVVAp1W9AaG_TtuMFs" name="Сторінка-2">
+    <mxGraphModel dx="1647" dy="954" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
