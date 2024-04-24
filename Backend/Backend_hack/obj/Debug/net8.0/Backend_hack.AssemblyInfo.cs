@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Backend_hack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce591c8bab82617631672c976039727ff00f7189")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64acd6b22c3f142904b2860a4a8cd5ea83bd0143")]
 [assembly: System.Reflection.AssemblyProductAttribute("Backend_hack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Backend_hack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
