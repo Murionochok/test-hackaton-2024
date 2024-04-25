@@ -4,7 +4,6 @@ using Backend_hack.Models;
 using Backend_hack.Models.Dto;
 using Backend_hack.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,13 +18,13 @@ namespace Backend_hack.Repository
         private readonly RoleManager<IdentityRole> _roleManager;
         private string secretKey;
         private readonly IMapper _mapper;
-        public UserRepository(IConfiguration configuration, ApplicationDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string secretKey, IMapper mapper)
+        public UserRepository(ApplicationDbContext db, IConfiguration configuration, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string secretKey, IMapper mapper)
         {
             _db = db;
             _userManager = userManager;
             _roleManager = roleManager;
-            secretKey = configuration.GetValue<string>("ApiSettings:Secret");
             _mapper = mapper;
+            this.secretKey = configuration.GetValue<string>("ApiSettings:Secret");
         }
 
         public bool IsUniqueUser(string email)
@@ -116,9 +115,9 @@ namespace Backend_hack.Repository
             return new UserDTO();
         }
 
-        public async Task<UserDTO> RegisterVolunteeer(RegistrationVolunteerDTO registerationUserDTO)
+/*        public async Task<UserDTO> RegisterVolunteeer(RegistrationVolunteerDTO registerationUserDTO)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

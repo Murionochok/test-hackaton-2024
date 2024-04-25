@@ -4,9 +4,9 @@ namespace Backend_hack.Repository.IRepository
 {
     public interface IUserRepository
     {
-        bool IsUniqueUser(string username);
+        bool IsUniqueUser(string email);
         Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO);
         Task<UserDTO> RegisterUser(RegistrationUserDTO registerationUserDTO);
-        Task<UserDTO> RegisterVolunteeer(RegistrationVolunteerDTO registerationUserDTO);
+/*        Task<UserDTO> RegisterVolunteeer(RegistrationVolunteerDTO registerationUserDTO);*/
     }
 }
