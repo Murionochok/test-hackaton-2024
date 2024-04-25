@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 // import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-// import { LightMode, DarkMode } from "@mui/icons-material";
+import { LightMode, DarkMode } from "@mui/icons-material";
 
 import styles from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -136,11 +136,21 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <Button variant="contained" onClick={changeThemeHandler}>
+          {/* <Button variant="contained" onClick={changeThemeHandler}>
             Change Theme
-          </Button>
+          </Button> */}
 
-          <Box sx={{ flexGrow: 0, display: "flex", gap: "15px" }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: "flex",
+              gap: "15px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <button onClick={changeThemeHandler}>
+              {isDarkTheme ? <LightMode /> : <DarkMode />}
+            </button>
             <Button variant="contained">Login</Button>
             <Button variant="contained">Register</Button>
 
