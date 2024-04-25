@@ -2,5 +2,6 @@
 {
     public class RequestCreateDTO
     {
+        public string Name { get; set; }
     }
 }

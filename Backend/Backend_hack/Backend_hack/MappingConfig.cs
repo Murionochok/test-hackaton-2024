@@ -8,6 +8,7 @@ namespace Backend_hack
     {
         public MappingConfig()
         {
+            CreateMap<RequestToDo, RequestCreateDTO>().ReverseMap();
             
         }
    

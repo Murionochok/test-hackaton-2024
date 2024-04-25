@@ -20,7 +20,7 @@ namespace Backend_hack.Repository
             await SaveAsync();
         }
 
-        public async Task DeleteAsync(T entity, string token)
+        public async Task DeleteAsync(T entity)
         {
             dbSet.Remove(entity);
             await SaveAsync();

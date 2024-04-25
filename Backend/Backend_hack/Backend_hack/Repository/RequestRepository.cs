@@ -11,5 +11,13 @@ namespace Backend_hack.Repository
         {
             _db = db;
         }
+
+        public async Task<RequestToDo> UpdateAsync(RequestToDo entity)
+        {
+
+            _db.Requests.Update(entity);
+            await _db.SaveChangesAsync();
+            return entity;
+        }
     }
 }
