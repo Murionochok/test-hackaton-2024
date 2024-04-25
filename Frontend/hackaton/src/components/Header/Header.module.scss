@@ -1,0 +1,5 @@
+@use "../../styles/variables";
+
+.AppBar {
+  height: variables.$header_height;
+}

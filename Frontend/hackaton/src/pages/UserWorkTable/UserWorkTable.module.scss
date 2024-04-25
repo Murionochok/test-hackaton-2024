@@ -1,0 +1,7 @@
+@use "../../styles/variables";
+
+.Box {
+  min-height: calc(
+    100vh - (variables.$header_height + variables.$footer_height)
+  );
+}
