@@ -3,6 +3,8 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home/Home";
 import UserWorkTable from "./pages/UserWorkTable/UserWorkTable";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const router = createBrowserRouter([
   {
@@ -23,9 +25,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="wrapper">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+      <div className="wrapper">
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   );
 }
 

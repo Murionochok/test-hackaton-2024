@@ -12,13 +12,22 @@ import Button from "@mui/material/Button";
 // import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+// import { LightMode, DarkMode } from "@mui/icons-material";
 
 import styles from "./Header.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { ReduxInterface } from "../../store";
+import { themeActions } from "../../store/theme-slice";
 
 const pages = ["Products", "Pricing", "Blog"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch();
+  const isDarkTheme = useSelector(
+    (state: ReduxInterface) => state.theme.isDarkTheme
+  );
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -41,6 +50,10 @@ function ResponsiveAppBar() {
   //     setAnchorElUser(null);
   //   };
 
+  const changeThemeHandler = () => {
+    dispatch(themeActions.changeTheme());
+  };
+
   return (
     <AppBar position="static" className={styles.AppBar}>
       <Container maxWidth="xl">
@@ -58,8 +71,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-            }}
-          >
+            }}>
             LOGO
           </Typography>
 
@@ -70,8 +82,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
-            >
+              color="inherit">
               <MenuIcon />
             </IconButton>
             <Menu
@@ -90,8 +101,7 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
-              }}
-            >
+              }}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
@@ -113,8 +123,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-            }}
-          >
+            }}>
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -122,12 +131,14 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
+                sx={{ my: 2, color: "white", display: "block" }}>
                 {page}
               </Button>
             ))}
           </Box>
+          <Button variant="contained" onClick={changeThemeHandler}>
+            Change Theme
+          </Button>
 
           <Box sx={{ flexGrow: 0, display: "flex", gap: "15px" }}>
             <Button variant="contained">Login</Button>
