@@ -8,7 +8,7 @@ import { darkTheme, lightTheme } from "../utils/themes/themes";
 
 export default function Layout() {
   const isDarkTheme = useSelector(
-    (state: ReduxInterface) => state.theme.isDarkTheme
+    (state: ReduxInterface) => state.theme.isDarkMode
   );
   console.log(isDarkTheme);
 

@@ -11,6 +11,6 @@ export default store;
 
 export interface ReduxInterface {
   theme: {
-    isDarkTheme: boolean;
+    isDarkMode: boolean;
   };
 }

@@ -25,7 +25,7 @@ const pages = ["Products", "Pricing", "Blog"];
 function ResponsiveAppBar() {
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
-    (state: ReduxInterface) => state.theme.isDarkTheme
+    (state: ReduxInterface) => state.theme.isDarkMode
   );
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
