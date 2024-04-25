@@ -21,8 +21,8 @@ namespace Backend_hack.Controllers
         [HttpPost("registerUser")]
         public async Task<IActionResult> RegisterUser([FromBody] RegistrationUserDTO model)
         {
-            bool ifUserNameUnique = _userRepo.IsUniqueUser(model.Email);
-            if (!ifUserNameUnique)
+            bool ifEmailUnique = _userRepo.IsUniqueUser(model.Email);
+            if (!ifEmailUnique)
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;

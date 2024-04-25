@@ -1,3 +1,4 @@
+using AutoMapper;
 using Backend_hack;
 using Backend_hack.Data;
 using Backend_hack.Models;
@@ -45,7 +46,20 @@ builder.Services.AddAuthentication(x =>
             ValidateAudience = false
         };
     });
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+/*builder.Services.AddScoped<IUserRepository, UserRepository>();*/
+builder.Services.AddScoped<IUserRepository>(provider =>
+    new UserRepository(
+        provider.GetRequiredService<ApplicationDbContext>(),
+        provider.GetRequiredService<IConfiguration>(),
+        provider.GetRequiredService<UserManager<ApplicationUser>>(),
+        provider.GetRequiredService<RoleManager<IdentityRole>>(),
+        secretKey: provider.GetService<string>(),
+        provider.GetRequiredService<IMapper>()
+
+       )
+    );
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
