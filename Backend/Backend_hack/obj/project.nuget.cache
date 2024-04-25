@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K4ij6X1LQrZ0wGLO5KpTl/F0C6f8uWtboQtSxgy+W4AKZP7r9Nsko/oH4vkPdMMkj0CEktEyhDrN2K1lHA6uAA==",
+  "dgSpecHash": "TZjlToCv+oz1P6z8va47W6fqvq956m2s4MY//pElbjOBrxooBECgLqsc3u8+2X2k4p69liHS1DVHT0ZFrGuPlQ==",
   "success": true,
-  "projectFilePath": "D:\\Hackaton\\Backend\\Backend_hack\\Backend_hack.csproj",
+  "projectFilePath": "C:\\Users\\User\\Source\\Repos\\test-hackaton-2024\\Backend\\Backend_hack\\Backend_hack.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
