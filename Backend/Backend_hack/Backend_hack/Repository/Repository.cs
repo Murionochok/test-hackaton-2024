@@ -26,7 +26,7 @@ namespace Backend_hack.Repository
             await SaveAsync();
         }
 
-        public async  Task<List<T>> GetAllAsync(string sessionToken, Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
 
