@@ -5,3 +5,11 @@
     100vh - (variables.$header_height + variables.$footer_height)
   );
 }
+
+.Button_Container {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin: 10px 20px;
+}
