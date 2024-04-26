@@ -9,7 +9,9 @@ namespace Backend_hack
         public MappingConfig()
         {
             CreateMap<RequestToDo, RequestCreateDTO>().ReverseMap();
-            
+            CreateMap<LoginRequestDTO,UserDTO>().ReverseMap();
+            CreateMap<ApplicationUser, UserDTO>().ReverseMap();
+
         }
    
     }

@@ -63,7 +63,7 @@ namespace Backend_hack.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, roles.FirstOrDefault())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -93,6 +93,7 @@ namespace Backend_hack.Repository
             try
             {
                 var result = await _userManager.CreateAsync(user, registerationUserDTO.Password);
+
                 if (result.Succeeded)
                 {
                     if (!_roleManager.RoleExistsAsync("admin").GetAwaiter().GetResult())

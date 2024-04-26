@@ -4,6 +4,8 @@ using Backend_hack.Models;
 using Backend_hack.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend_hack.Controllers
 {
@@ -13,10 +15,12 @@ namespace Backend_hack.Controllers
     {
         private readonly IUserRepository _userRepo;
         protected APIResponse _response;
-        public AuthController(IUserRepository userRepo)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AuthController(IUserRepository userRepo, UserManager<ApplicationUser> userManager)
         {
             _userRepo = userRepo;
             _response = new();
+            _userManager = userManager;
         }
         [HttpPost("registerUser")]
         public async Task<IActionResult> RegisterUser([FromBody] RegistrationUserDTO model)
@@ -64,6 +68,22 @@ namespace Backend_hack.Controllers
             }
             _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
+            return Ok(_response);
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
+        {
+            var loginResponse = await _userRepo.Login(model);
+            if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
+            {
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.IsSuccess = false;
+                _response.ErrorMessages.Add("Username or password is incorrect");
+                return BadRequest(_response);
+            }
+            _response.StatusCode = HttpStatusCode.OK;
+            _response.IsSuccess = true;
+            _response.Result = loginResponse;
             return Ok(_response);
         }
     }

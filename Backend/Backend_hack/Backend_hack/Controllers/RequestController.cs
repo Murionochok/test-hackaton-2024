@@ -3,8 +3,12 @@ using Backend_hack.Models;
 using Backend_hack.Models.Dto;
 using Backend_hack.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 
 namespace Backend_hack.Controllers
 {
@@ -15,11 +19,13 @@ namespace Backend_hack.Controllers
         protected APIResponse _response;
         private readonly IRequestRepository _requestRepo;
         private readonly IMapper _mapper;
-        public RequestController( IRequestRepository requestRepo, IMapper mapper)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public RequestController( IRequestRepository requestRepo, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _response = new();
             _requestRepo = requestRepo;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet("Get/{id:int}", Name = "GetRequest")]
@@ -45,7 +51,7 @@ namespace Backend_hack.Controllers
                     _response.StatusCode = HttpStatusCode.NotFound;
                     return NotFound(_response);
                 }
-                _response.Result = _mapper.Map<RequestDTO>(request);
+                _response.Result = _mapper.Map<RequestToDo>(request);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
             }
@@ -58,7 +64,6 @@ namespace Backend_hack.Controllers
             return _response;
         }
         [HttpGet("GetAll")]
-        [ResponseCache(CacheProfileName = "Default30")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -87,7 +92,7 @@ namespace Backend_hack.Controllers
                     requetlist = requetlist.Where(u => u.Name.ToLower().Contains(search));
                 }
                 
-                _response.Result = _mapper.Map<List<RequestDTO>>(requetlist);
+                _response.Result = _mapper.Map<List<RequestToDo>>(requetlist);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
 
@@ -102,27 +107,31 @@ namespace Backend_hack.Controllers
 
         }
         [HttpPost("Create")]
-/*        [Authorize(Roles = "admin")]*/
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<APIResponse>> CreateRequest([FromBody] RequestCreateDTO createDTO)
         {
             try
             {
- 
-/*                if (await _requestRepo.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
-                {
-                    ModelState.AddModelError("ErrorMessages", "Re already Exists!");
-                    return BadRequest(ModelState);
-                }*/
+
 
                 if (createDTO == null)
                 {
-                    return BadRequest(createDTO);
+                    return BadRequest(createDTO);   
                 }
+                var authorizationHeader = Request.Headers["Authorization"].ToString();
+                Console.WriteLine(authorizationHeader);
+                var jwtToken = authorizationHeader?.Split(' ').LastOrDefault();
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var token = tokenHandler.ReadJwtToken(jwtToken);
+
+                var userId = token.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
 
                 RequestToDo request = _mapper.Map<RequestToDo>(createDTO);
+                request.CreatedByUserId = userId;
 
 
                 await _requestRepo.CreateAsync(request);
@@ -138,6 +147,7 @@ namespace Backend_hack.Controllers
             }
             return _response;
         }
+       
         [HttpPut("Edit/{id:int}", Name = "UpdateRequest")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

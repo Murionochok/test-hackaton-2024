@@ -18,6 +18,6 @@ namespace Backend_hack.Models.Dto
         [RegularExpression("^(Weapon|Grocery|Staff)$")]
         public string Type { get; set; }
 
-        public string CreatedByUserId { get; set; }
+/*        public string CreatedByUserId { get; set; }*/
     }
 }
