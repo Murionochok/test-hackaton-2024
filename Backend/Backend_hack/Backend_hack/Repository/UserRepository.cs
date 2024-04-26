@@ -116,9 +116,34 @@ namespace Backend_hack.Repository
             return new UserDTO();
         }
 
-/*        public async Task<UserDTO> RegisterVolunteeer(RegistrationVolunteerDTO registerationUserDTO)
+        public async Task<UserDTO> RegisterVolunteer(RegistrationUserDTO registerationUserDTO)
         {
-            throw new NotImplementedException();
-        }*/
+            ApplicationUser user = new()
+            {
+                Surname = registerationUserDTO.Surname,
+                UserName = registerationUserDTO.Surname,
+                Email = registerationUserDTO.Email,
+                NormalizedEmail = registerationUserDTO.Email.ToUpper()
+            };
+
+            try
+            {
+                var result = await _userManager.CreateAsync(user, registerationUserDTO.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Volunteer");
+                    var userToReturn = _db.ApplicationUsers
+                        .FirstOrDefault(u => u.UserName == registerationUserDTO.Surname);
+                    return _mapper.Map<UserDTO>(userToReturn);
+
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return new UserDTO();
+        }
     }
 }
