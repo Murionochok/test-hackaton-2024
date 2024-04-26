@@ -247,15 +247,11 @@ const Register = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  error={errors.phoneNumber.isError}
-                  helperText={
-                    errors.phoneNumber.isError
-                      ? errors.phoneNumber.message
-                      : null
-                  }
                   label="Short Info"
                   required
                   inputRef={shortInfoRef}
+                  multiline
+                  rows={7}
                   inputProps={{ maxLength: 16 }}
                 />
               </Grid>
