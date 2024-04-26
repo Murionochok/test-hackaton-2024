@@ -6,7 +6,9 @@ import UserWorkTable from "./pages/UserWorkTable/UserWorkTable";
 import { Provider } from "react-redux";
 import store from "./store";
 import ErrorPage from "./pages/Error/ErrorPage";
-import Register from "./pages/Register/Register";
+import RegisterChoice from "./pages/Register/RegisterChoice/RegisterChoice";
+import RegisterUser from "./pages/Register/RegisterUser/RegisterUser";
+import RegisterVolunteer from "./pages/Register/RegisterVolunteer/RegisterVolunteer";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +20,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      { path: "/register", element: <Register /> },
+      { path: "/register", element: <RegisterChoice /> },
+      { path: "/register/user", element: <RegisterUser /> },
+      { path: "/register/volunteer", element: <RegisterVolunteer /> },
       {
         path: "/requests",
         element: <UserWorkTable />,

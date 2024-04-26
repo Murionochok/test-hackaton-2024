@@ -19,7 +19,7 @@ export default function ThemeButton() {
       display={{ xs: "none", sm: "flex" }}
       flexDirection="row"
       alignItems="center">
-      {isDarkTheme ? <LightMode /> : <DarkMode />}
+      {isDarkTheme ? <DarkMode /> : <LightMode />}
       <Switch onChange={changeThemeHandler} color="default" defaultChecked />
     </Box>
   );

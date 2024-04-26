@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { FormData } from "../../interfaces/UserInterfaces";
+import {
+  UserFormData,
+} from "../../interfaces/UserInterfaces";
 import {
   validatePhoneNumber,
   validatePassword,
@@ -8,7 +10,7 @@ import {
   validateEmail,
 } from "../../utils/validation/validation";
 
-export const useFormRegisterValidation = (initialFormData: FormData) => {
+export const useFormRegisterValidation = (initialFormData: UserFormData) => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({
     fullName: { isError: false, message: "" },
@@ -18,7 +20,7 @@ export const useFormRegisterValidation = (initialFormData: FormData) => {
     confirmPassword: { isError: false, message: "" },
   });
 
-  const validateForm = (formData: FormData) => {
+  const validateForm = (formData: UserFormData) => {
     const fullNameError = validateFullName(formData.fullName);
     const emailError = validateEmail(formData.email);
     const phoneNumberError = validatePhoneNumber(formData.phoneNumber);

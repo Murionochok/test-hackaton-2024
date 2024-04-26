@@ -17,9 +17,9 @@ import {
   Link,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useFormRegisterValidation } from "../../utils/hooks/useFormRegisterValidation";
+import { useFormRegisterValidation } from "../../../utils/hooks/useFormRegisterValidation";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FormData } from "../../interfaces/UserInterfaces";
+import { VolunteerFormData } from "../../../interfaces/UserInterfaces";
 
 const Register = () => {
   const location = useLocation();
@@ -32,13 +32,15 @@ const Register = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const shortInfoRef = useRef();
 
-  const initialFormData: FormData = {
+  const initialFormData: VolunteerFormData = {
     fullName: "",
     email: "",
     phoneNumber: "",
     password: "",
     confirmPassword: "",
+    shortInfo: "",
   };
 
   const { setFormData, errors, validateForm } =
@@ -116,7 +118,7 @@ const Register = () => {
         }}>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Volunteer Registration
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -243,15 +245,30 @@ const Register = () => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  error={errors.phoneNumber.isError}
+                  helperText={
+                    errors.phoneNumber.isError
+                      ? errors.phoneNumber.message
+                      : null
+                  }
+                  label="Short Info"
+                  required
+                  inputRef={shortInfoRef}
+                  inputProps={{ maxLength: 16 }}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <Grid container>
                   <Grid item xs={3.5}>
                     <Link
                       component="button"
                       variant="body2"
                       onClick={() => {
-                        console.info("I'm a button.");
+                        navigate("/register/user");
                       }}>
-                      Register As Volunteer
+                      Register As User
                     </Link>
                   </Grid>
                   <Grid item xs={6}>
@@ -259,7 +276,7 @@ const Register = () => {
                       component="button"
                       variant="body2"
                       onClick={() => {
-                        console.info("I'm a button.");
+                        navigate("/login");
                       }}>
                       Sign In
                     </Link>

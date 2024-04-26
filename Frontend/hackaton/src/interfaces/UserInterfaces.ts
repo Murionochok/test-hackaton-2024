@@ -4,10 +4,19 @@ export interface UserBasedCardsData {
   description: string;
 }
 
-export interface FormData {
+export interface UserFormData {
   fullName: string;
   email: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface VolunteerFormData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+  shortInfo: string
 }
