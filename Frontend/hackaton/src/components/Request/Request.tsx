@@ -11,10 +11,8 @@ import {
 
 import styles from "./UserCreateRequestForm.module.scss";
 import React from "react";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export default function UserRequestForm() {
+export default function Request() {
   const [tag, setTag] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -32,9 +30,7 @@ export default function UserRequestForm() {
               <TextField id="address" label="Address" variant="outlined" />
             </Box>
             <Box className={styles.Term}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Term" />
-              </LocalizationProvider>
+              <TextField id="surname" label="Term" variant="outlined" />
             </Box>
             <Box className={styles.Tag}>
               <FormControl className={styles.FormControl}>
@@ -54,11 +50,10 @@ export default function UserRequestForm() {
           </Box>
           <Box className={styles.Description}>
             <TextField
-              fullWidth
-              label="Detailed description"
-              required
+              id="surname"
+              label="Description"
+              variant="outlined"
               multiline
-              rows={7}
             />
           </Box>
           <Button variant="contained" className={styles.Submit}>
