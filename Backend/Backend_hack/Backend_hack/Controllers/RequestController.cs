@@ -129,6 +129,10 @@ namespace Backend_hack.Controllers
                 var token = tokenHandler.ReadJwtToken(jwtToken);
 
                 var userId = token.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
+                if(userId == null)
+                {
+                    return Unauthorized();
+                }
 
                 RequestToDo request = _mapper.Map<RequestToDo>(createDTO);
                 request.CreatedByUserId = userId;
@@ -149,6 +153,7 @@ namespace Backend_hack.Controllers
         }
        
         [HttpPut("Edit/{id:int}", Name = "UpdateRequest")]
+        [Authorize(Roles ="admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<APIResponse>> UpdateVilla(int id, [FromBody] RequestUpdateDTO updateDTO)
