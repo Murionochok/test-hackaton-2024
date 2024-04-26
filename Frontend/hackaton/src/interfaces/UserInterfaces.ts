@@ -5,8 +5,8 @@ export interface UserBasedCardsData {
 }
 
 export interface FormData {
-  firstName: string;
-  lastName: string;
+  fullName: string;
+  email: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;

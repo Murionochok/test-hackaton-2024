@@ -5,7 +5,6 @@ import {
   Avatar,
   Button,
   Container,
-  CssBaseline,
   FormControl,
   Grid,
   InputAdornment,
@@ -15,6 +14,7 @@ import {
   Typography,
   TextField,
   CircularProgress,
+  Link,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormRegisterValidation } from "../../utils/hooks/useFormRegisterValidation";
@@ -27,15 +27,15 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
   //   const [isSending, setIsSending] = useState(false);
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
+  const fullNameRef = useRef();
   const phoneNumberRef = useRef();
+  const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
   const initialFormData: FormData = {
-    firstName: "",
-    lastName: "",
+    fullName: "",
+    email: "",
     phoneNumber: "",
     password: "",
     confirmPassword: "",
@@ -55,13 +55,13 @@ const Register = () => {
     event.preventDefault();
 
     const formDataObj = {
-      firstName:
-        firstNameRef.current && "value" in firstNameRef.current
-          ? (firstNameRef.current as HTMLInputElement).value
+      fullName:
+        fullNameRef.current && "value" in fullNameRef.current
+          ? (fullNameRef.current as HTMLInputElement).value
           : "",
-      lastName:
-        lastNameRef.current && "value" in lastNameRef.current
-          ? (lastNameRef.current as HTMLInputElement).value
+      email:
+        emailRef.current && "value" in emailRef.current
+          ? (emailRef.current as HTMLInputElement).value
           : "",
       phoneNumber:
         phoneNumberRef.current && "value" in phoneNumberRef.current
@@ -81,19 +81,19 @@ const Register = () => {
 
     if (validation) {
       setFormData(formDataObj);
-      //   setIsSending(true);
-      // const response = await postRegisterUserData(formDataObj)
+      // setIsSending(true);
+      // const response = await postRegisterUserData(formDataObj);
       // if (response) {
-      //   setIsSending(false)
+      //   setIsSending(false);
       //   setIsPostError(() => {
       //     return {
       //       error: true,
       //       message: response,
-      //     }
-      //   })
-      //   return
+      //     };
+      //   });
+      //   return;
       // }
-      //   setIsSending(false);
+      // setIsSending(false);
 
       const pathToOrg = `${location.pathname}/org`;
       navigate(pathToOrg);
@@ -103,8 +103,10 @@ const Register = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container
+      component="main"
+      maxWidth="sm"
+      sx={{ marginBottom: { xs: 5, sm: 10 } }}>
       <Box
         sx={{
           marginTop: 8,
@@ -122,109 +124,147 @@ const Register = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  error={errors.firstName.isError}
+                  error={errors.fullName.isError}
                   helperText={
-                    errors.firstName.isError ? errors.firstName.message : null
+                    errors.fullName.isError ? errors.fullName.message : null
                   }
                   autoComplete="fname"
-                  name="firstName"
+                  name="FullName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="fullName"
+                  label="Full Name"
                   autoFocus
-                  inputRef={firstNameRef}
+                  inputRef={fullNameRef}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  error={errors.lastName.isError}
+                  error={errors.email.isError}
                   helperText={
-                    errors.lastName.isError ? errors.lastName.message : null
+                    errors.email.isError ? errors.email.message : null
                   }
+                  autoComplete="email"
+                  name="Email"
+                  required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                  inputRef={lastNameRef}
+                  id="email"
+                  label="Email"
+                  inputRef={emailRef}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField
+                  fullWidth
                   error={errors.phoneNumber.isError}
                   helperText={
                     errors.phoneNumber.isError
                       ? errors.phoneNumber.message
                       : null
                   }
+                  label="Phone Number"
                   required
-                  placeholder="Enter phone number"
                   inputRef={phoneNumberRef}
                   inputProps={{ maxLength: 16 }}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControl fullWidth required variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end">
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                    error={errors.password.isError}
-                    inputRef={passwordRef}
-                    autoComplete="new-password"
-                  />
-                  {errors.password.isError && (
-                    <Box sx={{ color: "red", fontSize: "14px" }}>
-                      {errors.password.message}
-                    </Box>
-                  )}
-                </FormControl>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth required variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end">
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                        error={errors.password.isError}
+                        inputRef={passwordRef}
+                        autoComplete="new-password"
+                      />
+                      {errors.password.isError && (
+                        <Box sx={{ color: "red", fontSize: "14px" }}>
+                          {errors.password.message}
+                        </Box>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth required variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Confirm Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="confirm-password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end">
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Confirm Password"
+                        error={errors.confirmPassword.isError}
+                        inputRef={confirmPasswordRef}
+                        autoComplete="new-password"
+                      />
+                      {errors.confirmPassword.isError && (
+                        <Box sx={{ color: "red", fontSize: "14px" }}>
+                          {errors.confirmPassword.message}
+                        </Box>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item xs={12}>
-                <FormControl fullWidth required variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Confirm Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="confirm-password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end">
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Confirm Password"
-                    error={errors.confirmPassword.isError}
-                    inputRef={confirmPasswordRef}
-                    autoComplete="new-password"
-                  />
-                  {errors.confirmPassword.isError && (
-                    <Box sx={{ color: "red", fontSize: "14px" }}>
-                      {errors.confirmPassword.message}
-                    </Box>
-                  )}
-                </FormControl>
+                <Grid container>
+                  <Grid item xs={3.5}>
+                    <Link
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}>
+                      Register As Volunteer
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Link
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}>
+                      Sign In
+                    </Link>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
             {/* {isSending

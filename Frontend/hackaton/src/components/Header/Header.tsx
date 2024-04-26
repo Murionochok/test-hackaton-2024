@@ -35,11 +35,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <NavLink to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              sx={sxHeaderStyles.logo}>
+            <Typography variant="h6" noWrap sx={sxHeaderStyles.logo}>
               LOGO
             </Typography>
           </NavLink>
@@ -76,11 +72,7 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           <NavLink to="/">
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              sx={sxHeaderStyles.smallLogo}>
+            <Typography variant="h5" noWrap sx={sxHeaderStyles.smallLogo}>
               LOGO
             </Typography>
           </NavLink>
@@ -99,7 +91,9 @@ function ResponsiveAppBar() {
             <Button variant="contained" sx={sxHeaderStyles.loginHide}>
               Login
             </Button>
-            <Button variant="contained">Register</Button>
+            <NavLink to={"/register"}>
+              <Button variant="contained">Register</Button>
+            </NavLink>
           </Box>
         </Toolbar>
       </Container>

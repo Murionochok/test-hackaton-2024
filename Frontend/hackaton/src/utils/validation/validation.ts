@@ -1,21 +1,12 @@
-const nameRegex = /^[a-zA-Zа-яА-Я]+(?:[' -][a-zA-Zа-яА-Я]+)*$/;
-const phoneNumberRegex = /^\+[1-9]\d{1,14}$/;
+const nameRegex = /^[А-ЯІЇЄҐA-Z][а-яіїєґa-z]+(?: [А-ЯІЇЄҐA-Z][а-яіїєґa-z]+)+$/;
+export const phoneNumberRegex = /^\+[1-9]\d{1,14}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 
 interface ValidationResponse {
   isError: boolean;
   message: string;
 }
-
-export const validateAge = (age: number): ValidationResponse => {
-  if (isNaN(age) || age < 0) {
-    return { isError: true, message: "Age must be a positive number." };
-  }
-  // Optional: Add checks for maximum age if needed
-  // (e.g., if (age > 120) { ... })
-
-  return { isError: false, message: "" };
-};
 
 export const validateFullName = (fullName: string): ValidationResponse => {
   if (!fullName.trim()) {
@@ -33,16 +24,7 @@ export const validateFullName = (fullName: string): ValidationResponse => {
 
   // Optional: More comprehensive name validation
   // (e.g., check for special characters, non-breaking spaces, etc.)
-
-  return { isError: false, message: "" };
-};
-
-export const validateFirstName = (firstName: string): ValidationResponse => {
-  if (!firstName.trim()) {
-    return { isError: true, message: "Enter the value" };
-  } else if (firstName.trim().length < 4 || firstName.trim().length > 16) {
-    return { isError: true, message: "Enter a value between 4 and 16 symbols" };
-  } else if (!nameRegex.test(firstName)) {
+  if (!nameRegex.test(fullName)) {
     return {
       isError: true,
       message:
@@ -53,17 +35,16 @@ export const validateFirstName = (firstName: string): ValidationResponse => {
   return { isError: false, message: "" };
 };
 
-export const validateLastName = (lastName: string): ValidationResponse => {
-  if (!lastName.trim()) {
-    return { isError: false, message: "" };
+export const validateEmail = (email: string): ValidationResponse => {
+  if (!email.trim()) {
+    return { isError: true, message: "Enter your email address." };
   }
-  if (lastName.trim().length < 4 || lastName.trim().length > 16) {
-    return { isError: true, message: "Enter a value between 4 and 16 symbols" };
-  } else if (!nameRegex.test(lastName)) {
+
+  // Basic email format validation (can be enhanced)
+  if (!emailRegex.test(email)) {
     return {
       isError: true,
-      message:
-        "Last name cannot contain special characters such as numbers or symbols.",
+      message: "Invalid email address. Please enter a valid email.",
     };
   }
 

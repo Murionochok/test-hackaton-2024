@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { FormData } from "../../interfaces/UserInterfaces";
 import {
-  validateFirstName,
-  validateLastName,
   validatePhoneNumber,
   validatePassword,
   validateConfirmPassword,
-} from "../../utils/validation/validation"
+  validateFullName,
+  validateEmail,
+} from "../../utils/validation/validation";
 
 export const useFormRegisterValidation = (initialFormData: FormData) => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({
-    firstName: { isError: false, message: "" },
-    lastName: { isError: false, message: "" },
+    fullName: { isError: false, message: "" },
+    email: { isError: false, message: "" },
     phoneNumber: { isError: false, message: "" },
     password: { isError: false, message: "" },
     confirmPassword: { isError: false, message: "" },
   });
 
   const validateForm = (formData: FormData) => {
-    const firstNameError = validateFirstName(formData.firstName);
-    const lastNameError = validateLastName(formData.lastName);
+    const fullNameError = validateFullName(formData.fullName);
+    const emailError = validateEmail(formData.email);
     const phoneNumberError = validatePhoneNumber(formData.phoneNumber);
     const passwordError = validatePassword(formData.password);
     const confirmPasswordError = validateConfirmPassword(
@@ -29,16 +29,16 @@ export const useFormRegisterValidation = (initialFormData: FormData) => {
     );
 
     setErrors({
-      firstName: firstNameError,
-      lastName: lastNameError,
+      fullName: fullNameError,
+      email: emailError,
       phoneNumber: phoneNumberError,
       password: passwordError,
       confirmPassword: confirmPasswordError,
     });
 
     return (
-      !firstNameError.isError &&
-      !lastNameError.isError &&
+      !fullNameError.isError &&
+      !emailError.isError &&
       !phoneNumberError.isError &&
       !passwordError.isError &&
       !confirmPasswordError.isError

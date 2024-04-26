@@ -19,7 +19,7 @@ const testData: UserBasedCardsData[] = [
 
 export default function UserWorkTable() {
   return (
-    <Box className={styles.Box}>
+    <Box className={styles.Box} component="main">
       <Box className={styles.Button_Container}>
         <Button variant="contained">Create Request</Button>
       </Box>

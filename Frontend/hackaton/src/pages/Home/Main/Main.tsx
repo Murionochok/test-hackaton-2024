@@ -21,14 +21,14 @@ export default function Main() {
               </Typography>
               <Grid container spacing={3} marginTop={1}>
                 <Grid item>
-                  <Button variant="contained">
-                    <Link to={"/requests"}>Requests</Link>
-                  </Button>
+                  <Link to={"/requests"}>
+                    <Button variant="contained">Requests</Button>
+                  </Link>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained">
-                    <Link to={"/register"}>Register</Link>
-                  </Button>
+                  <Link to={"/register"}>
+                    <Button variant="contained">Register</Button>
+                  </Link>
                 </Grid>
               </Grid>
             </Box>
