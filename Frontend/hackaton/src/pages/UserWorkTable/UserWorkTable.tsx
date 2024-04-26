@@ -3,6 +3,7 @@ import { Box, Button } from "@mui/material";
 import styles from "./UserWorkTable.module.scss";
 import { UserBasedCardsData } from "../../interfaces/UserInterfaces";
 import RequestCard from "../../components/RequestCard/RequestCard";
+import { Link } from "react-router-dom";
 
 const testData: UserBasedCardsData[] = [
   {
@@ -21,7 +22,9 @@ export default function UserWorkTable() {
   return (
     <Box className={styles.Box}>
       <Box className={styles.Button_Container}>
-        <Button variant="contained">Create Request</Button>
+        <Link to="/user/create_card">
+          <Button variant="contained">Create Request</Button>
+        </Link>
       </Box>
       <Box>
         {testData.map((card) => (

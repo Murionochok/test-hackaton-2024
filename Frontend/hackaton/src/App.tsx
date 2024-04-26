@@ -3,6 +3,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home/Home";
 import UserWorkTable from "./pages/UserWorkTable/UserWorkTable";
+import UserCreateRequestForm from "./components/UserCreateRequestForm/UserCreateRequestForm";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/user",
         element: <UserWorkTable />,
+      },
+      {
+        path: "/user/create_card",
+        element: <UserCreateRequestForm />,
       },
     ],
   },
