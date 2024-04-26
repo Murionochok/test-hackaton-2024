@@ -1,10 +1,11 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 
 import mainImage from "../../../assets/img/1000_F_360323951_XtIbMPnjD5zHOmSh2CFpKvo4jvkPXjau.jpg";
+import { Link } from "react-router-dom";
 
 export default function Main() {
   return (
-    <Box component="section" marginTop={10}>
+    <Box component="section" marginTop={10} marginBottom={10}>
       <Container maxWidth="xl">
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={6}>
@@ -18,7 +19,18 @@ export default function Main() {
                 inventore consectetur, neque doloribus, cupiditate numquam
                 dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
               </Typography>
-              <Button variant="contained">Requests</Button>
+              <Grid container spacing={3} marginTop={1}>
+                <Grid item>
+                  <Link to={"/requests"}>
+                    <Button variant="contained">Requests</Button>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to={"/register"}>
+                    <Button variant="contained">Register</Button>
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
