@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend_hack.Models
 {
@@ -36,6 +37,8 @@ namespace Backend_hack.Models
 
         [Required]
         public string CreatedByUserId { get; set; }
+        [ForeignKey("CreatedByUserId")]
+        public ApplicationUser ApplicationUser { get; set; }
 
     }
 }

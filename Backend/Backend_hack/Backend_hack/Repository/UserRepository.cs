@@ -85,6 +85,7 @@ namespace Backend_hack.Repository
             ApplicationUser user = new()
             {
                 Surname = registerationUserDTO.Surname,
+                UserName = registerationUserDTO.Surname,
                 Email = registerationUserDTO.Email,
                 NormalizedEmail = registerationUserDTO.Email.ToUpper()
             };
