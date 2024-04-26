@@ -5,18 +5,22 @@ import Home from "./pages/Home/Home";
 import UserWorkTable from "./pages/UserWorkTable/UserWorkTable";
 import { Provider } from "react-redux";
 import store from "./store";
+import ErrorPage from "./pages/Error/ErrorPage";
+import Register from "./pages/Register/Register";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage errorMessage={"wmfwkfe"} />,
     children: [
       {
         path: "/",
         element: <Home />,
       },
+      { path: "/register", element: <Register /> },
       {
-        path: "/user",
+        path: "/requests",
         element: <UserWorkTable />,
       },
     ],

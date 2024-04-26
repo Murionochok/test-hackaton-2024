@@ -1,6 +1,4 @@
-// src/componetns/Footer.tsx
-
-import React, { FC, ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 import styles from "./Footer.module.scss";
