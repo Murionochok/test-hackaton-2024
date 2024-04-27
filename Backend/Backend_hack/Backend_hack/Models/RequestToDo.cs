@@ -4,6 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend_hack.Models
 {
+    public enum RequestState
+    {
+        Sent,
+        Approved,
+        Rejected,
+        Done
+    }
     public class RequestToDo
     {
         [Key]
@@ -40,5 +47,6 @@ namespace Backend_hack.Models
         [ForeignKey("CreatedByUserId")]
         public ApplicationUser ApplicationUser { get; set; }
 
+        public RequestState State { get; set; } = RequestState.Sent;
     }
 }
