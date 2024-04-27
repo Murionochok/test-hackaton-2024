@@ -4,7 +4,9 @@ using Backend_hack.Models.Dto;
 using Backend_hack.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -64,48 +66,52 @@ namespace Backend_hack.Controllers
             return _response;
         }
         [HttpGet("GetAll")]
-        [Authorize(Roles ="User")]
+        /*        [Authorize(Roles ="User")]*/
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<APIResponse>> GetRequests([FromQuery(Name = "filterType")] string? type,
-           [FromQuery] string? search)
+           [FromQuery(Name = "filterState")] RequestState? state, [FromQuery] string? search)
         {
             try
             {
 
                 IEnumerable<RequestToDo> requetlist;
 
-                if (type == "Weapon")
+                if (state != null)
                 {
-                    requetlist = await _requestRepo.GetAllAsync(u => u.Type =="Weapon");
-                }
-                else if (type =="Grocery")
-                {
-                    requetlist = await _requestRepo.GetAllAsync(u => u.Type == "Grocery");
+                    requetlist = await _requestRepo.GetAllwithStateAsync(state);
                 }
                 else
                 {
                     requetlist = await _requestRepo.GetAllAsync();
                 }
+
+                if (type == "Weapon")
+                {
+                    requetlist = requetlist.Where(u => u.Type == "Weapon");
+                }
+                else if (type == "Grocery")
+                {
+                    requetlist = requetlist.Where(u => u.Type == "Grocery");
+                }
+
                 if (!string.IsNullOrEmpty(search))
                 {
                     requetlist = requetlist.Where(u => u.Name.ToLower().Contains(search));
                 }
-                
-                _response.Result = _mapper.Map<List<RequestToDo>>(requetlist);
+
+                var resultList = requetlist.ToList();
+                _response.Result = _mapper.Map<List<RequestToDo>>(resultList);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
-
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages
-                     = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                return BadRequest(_response);
             }
-            return _response;
-
         }
         [HttpPost("Create")]
         [Authorize(Roles ="User")]
@@ -180,6 +186,23 @@ namespace Backend_hack.Controllers
                      = new List<string>() { ex.ToString() };
             }
             return _response;
+        }
+        [HttpPatch("updatestate/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateRequestState(int id, [FromBody] RequestState newState)
+        {
+            var request = await _requestRepo.GetAsync(r => r.Id == id);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            request.State = newState;
+            await _requestRepo.SaveAsync();
+
+            return NoContent();
         }
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

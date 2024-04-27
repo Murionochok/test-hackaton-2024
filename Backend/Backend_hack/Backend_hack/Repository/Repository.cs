@@ -2,9 +2,12 @@
 using Backend_hack.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Backend_hack.Models;
+using System.Collections;
 
 namespace Backend_hack.Repository
 {
+   
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _db;
@@ -27,12 +30,13 @@ namespace Backend_hack.Repository
         }
 
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
-        {
+        {      
             IQueryable<T> query = dbSet;
 
             if (filter != null)
             {
-                query = query.Where(filter);
+                    query = query.Where(filter);
+
             }
             if (includeProperties != null)
             {

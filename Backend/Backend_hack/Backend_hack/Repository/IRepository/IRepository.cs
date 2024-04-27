@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Backend_hack.Models;
 
 namespace Backend_hack.Repository.IRepository
 {
