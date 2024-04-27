@@ -1,0 +1,90 @@
+.Box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.base {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+.id {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.level1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Name {
+}
+.Surname {
+}
+.Tag {
+  width: 223px;
+}
+.FormControl {
+  width: 100%;
+}
+
+#tag-label {
+}
+#tag-select {
+}
+
+.Title {
+  width: 100%;
+}
+.Title div {
+  width: 100%;
+}
+.location {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.Email,
+.Phone,
+.Address,
+.Date {
+  width: 45%;
+}
+.Email div,
+.Phone div,
+.Address div,
+.Date div {
+  width: 100%;
+}
+
+.Description {
+  width: 100%;
+  height: 200px;
+}
+.Description div {
+  width: 100%;
+  height: 100%;
+}
+
+.Submit {
+  width: 100%;
+}
+
+.Term div {
+  padding-top: 0;
+}

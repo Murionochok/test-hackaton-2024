@@ -44,20 +44,22 @@ export default function UserWorkTable() {
       </Box>
       <Box>
         {testData.map((card) => (
-          <RequestCard
-            key={card.id}
-            id={card.id}
-            name={card.name}
-            surname={card.surname}
-            email={card.email}
-            phone={card.phone}
-            publicationDate={card.publicationDate}
-            title={card.title}
-            address={card.address}
-            date={card.date}
-            tag={card.tag}
-            description={card.description}
-          />
+          <Link to={`/request/${card.id}`}>
+            <RequestCard
+              key={card.id}
+              id={card.id}
+              name={card.name}
+              surname={card.surname}
+              email={card.email}
+              phone={card.phone}
+              publicationDate={card.publicationDate}
+              title={card.title}
+              address={card.address}
+              date={card.date}
+              tag={card.tag}
+              description={card.description}
+            />
+          </Link>
         ))}
       </Box>
     </Box>
