@@ -28,6 +28,7 @@ const Register = () => {
   //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
   //   const [isSending, setIsSending] = useState(false);
   const fullNameRef = useRef();
+
   const phoneNumberRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();

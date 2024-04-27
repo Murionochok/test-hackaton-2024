@@ -18,5 +18,5 @@ export interface VolunteerFormData {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  shortInfo: string
+  shortInfo: string | File | null;
 }
