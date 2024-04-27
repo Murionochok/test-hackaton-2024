@@ -17,6 +17,8 @@ import AdminWorkTable from "./pages/AdminWorkTable/AdminWorkTable";
 import Login from "./pages/Login/Login";
 import AdminRequests from "./components/AdminRequests/AdminRequests";
 import AdminRequest from "./components/AdminRequest/AdminRequest";
+import VolunteerList from "./components/VolunteerList/VolunteerList";
+import Volunteer from "./components/Volunteer/Volunteer";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,9 @@ const router = createBrowserRouter([
       { path: "/admin", element: <AdminWorkTable /> },
       { path: "/admin/requests", element: <AdminRequests /> },
       { path: "/admin/requests/:id", element: <AdminRequest /> },
+
+      { path: "/admin/volunteers", element: <VolunteerList /> },
+      { path: "/admin/volunteers/:id", element: <Volunteer /> },
     ],
   },
 ]);

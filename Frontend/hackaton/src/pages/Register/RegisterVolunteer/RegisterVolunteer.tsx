@@ -106,14 +106,16 @@ const Register = () => {
     <Container
       component="main"
       maxWidth="sm"
-      sx={{ marginBottom: { xs: 5, sm: 10 } }}>
+      sx={{ marginBottom: { xs: 5, sm: 10 } }}
+    >
       <Box
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}>
+        }}
+      >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
         <Typography component="h1" variant="h5">
           Volunteer Registration
@@ -183,7 +185,8 @@ const Register = () => {
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
                               onMouseDown={handleMouseDownPassword}
-                              edge="end">
+                              edge="end"
+                            >
                               {showPassword ? (
                                 <VisibilityOff />
                               ) : (
@@ -218,7 +221,8 @@ const Register = () => {
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
                               onMouseDown={handleMouseDownPassword}
-                              edge="end">
+                              edge="end"
+                            >
                               {showPassword ? (
                                 <VisibilityOff />
                               ) : (
@@ -277,7 +281,8 @@ const Register = () => {
                       variant="body2"
                       onClick={() => {
                         navigate("/register/user");
-                      }}>
+                      }}
+                    >
                       Register As User
                     </Link>
                   </Grid>
@@ -287,7 +292,8 @@ const Register = () => {
                       variant="body2"
                       onClick={() => {
                         navigate("/login");
-                      }}>
+                      }}
+                    >
                       Sign In
                     </Link>
                   </Grid>
@@ -304,13 +310,15 @@ const Register = () => {
 
             <Box
               component="div"
-              style={{ position: "relative", width: "100%" }}>
+              style={{ position: "relative", width: "100%" }}
+            >
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 //   disabled={isSending}
-                sx={{ mt: 2 }}>
+                sx={{ mt: 2 }}
+              >
                 {/* {isSending ? (
                     <CircularProgress size={24} color="inherit" />
                   ) : (
