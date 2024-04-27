@@ -29,9 +29,9 @@ const router = createBrowserRouter([
       { path: "/register/user", element: <RegisterUser /> },
       { path: "/register/volunteer", element: <RegisterVolunteer /> },
 
-      { path: "user/id/requests", element: <UserWorkTable /> },
+      { path: "/user/id/requests", element: <UserWorkTable /> },
       {
-        path: "user/id/requests/:id",
+        path: "/user/id/requests/:id",
         element: (
           <Request>
             <span></span>
