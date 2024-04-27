@@ -1,33 +1,17 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
-import styles from "./Request.module.scss";
+import styles from "./Volunteer.module.scss";
+import { testVolunteers } from "../VolunteerList/VolunteerList";
 import { useParams } from "react-router-dom";
-import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
-type ButtonProps = {
-  children?: JSX.Element[] | JSX.Element;
-};
-
-export default function Request({ children }: ButtonProps) {
+export default function Volunteer() {
   const { id } = useParams();
-  console.log(children);
-  const [currObj] = testData.filter((item) => item.id == Number(id));
+  const [currObj] = testVolunteers.filter((item) => item.id == Number(id));
   return (
     <form className={styles.Box}>
       <Box className={styles.form}>
         <Box className={styles.base}>
           <h1 className={styles.id}>#{currObj.id}</h1>
-          <Box className={styles.Title}>
-            <TextField
-              id="title"
-              label="Title"
-              variant="outlined"
-              value={currObj.title}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </Box>
           <Box className={styles.level1}>
             <Box className={styles.Name}>
               <TextField
@@ -46,17 +30,6 @@ export default function Request({ children }: ButtonProps) {
                 label="Surname"
                 variant="outlined"
                 value={currObj.surname}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Box>
-            <Box className={styles.Tag}>
-              <TextField
-                id="tag"
-                label="Tag"
-                variant="outlined"
-                value={currObj.tag}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -87,45 +60,25 @@ export default function Request({ children }: ButtonProps) {
               />
             </Box>
           </Box>
-          <Box className={styles.level1}>
-            <Box className={styles.Address}>
-              <TextField
-                id="address"
-                label="Address"
-                variant="outlined"
-                value={currObj.address}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Box>
-            <Box className={styles.Date}>
-              <TextField
-                id="date"
-                label="Date"
-                variant="outlined"
-                value={currObj.date}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Box>
-          </Box>
-          <Box className={styles.Description}>
+          <Box className={styles.Info}>
             <TextField
               fullWidth
-              label="Detailed description"
+              label="Info"
               required
               multiline
               rows={7}
-              value={currObj.description}
+              value={currObj.info}
               InputProps={{
                 readOnly: true,
               }}
             />
           </Box>
-          <h3>Publication date: {currObj.publicationDate}</h3>
-          {children}
+          <Box className={styles.link}>
+            <h1>
+              Link to CV: <a href={`${currObj.linkToCV}`}>Link</a>
+            </h1>
+          </Box>
+          <Button variant="contained">Approve</Button>
         </Box>
       </Box>
     </form>

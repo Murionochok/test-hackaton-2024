@@ -5,7 +5,6 @@
     100vh - (variables.$header_height + variables.$footer_height)
   );
   display: flex;
+  align-items: center;
   justify-content: center;
-}
-.btn {
 }
