@@ -25,14 +25,9 @@ const router = createBrowserRouter([
       { path: "/register", element: <RegisterChoice /> },
       { path: "/register/user", element: <RegisterUser /> },
       { path: "/register/volunteer", element: <RegisterVolunteer /> },
-      {
-        path: "/requests",
-        element: <UserWorkTable />,
-      },
-      {
-        path: "/request/:id",
-        element: <Request />,
-      },
+
+      { path: "/requests", element: <UserWorkTable /> },
+      { path: "/requests/:id", element: <Request /> },
       {
         path: "/user/create_card",
         element: <UserCreateRequestForm />,

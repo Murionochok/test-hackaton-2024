@@ -44,7 +44,7 @@ export default function UserWorkTable() {
       </Box>
       <Box>
         {testData.map((card) => (
-          <Link to={`/request/${card.id}`}>
+          <Link to={`/requests/${card.id}`}>
             <RequestCard
               key={card.id}
               id={card.id}
