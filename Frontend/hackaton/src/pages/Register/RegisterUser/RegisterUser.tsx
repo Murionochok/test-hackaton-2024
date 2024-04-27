@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { UserFormData } from "../../../interfaces/UserInterfaces";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../../store/user/user-slice";
+import { ReduxInterface } from "../../../store";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
