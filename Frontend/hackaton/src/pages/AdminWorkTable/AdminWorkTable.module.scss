@@ -4,4 +4,8 @@
   min-height: calc(
     100vh - (variables.$header_height + variables.$footer_height)
   );
+  display: flex;
+  justify-content: center;
+}
+.btn {
 }
