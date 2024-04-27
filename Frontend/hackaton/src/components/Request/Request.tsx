@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
 type ButtonProps = {
-  children: JSX.Element;
+  children?: JSX.Element[] | JSX.Element;
 };
 
 export default function Request({ children }: ButtonProps) {

@@ -15,6 +15,8 @@ import VolunteerWorkTable from "./pages/VolunteerWorkTable/VolunteerWorkTable";
 import VolunteerRequest from "./components/VolunteerRequest/VolunteerRequest";
 import AdminWorkTable from "./pages/AdminWorkTable/AdminWorkTable";
 import Login from "./pages/Login/Login";
+import AdminRequests from "./components/AdminRequests/AdminRequests";
+import AdminRequest from "./components/AdminRequest/AdminRequest";
 
 const router = createBrowserRouter([
   {
@@ -34,12 +36,7 @@ const router = createBrowserRouter([
       { path: "/user/id/requests", element: <UserWorkTable /> },
       {
         path: "/user/id/requests/:id",
-        element: (
-          <Request>
-            <span></span>
-            {/* костиль */}
-          </Request>
-        ),
+        element: <Request />,
       },
       {
         path: "/user/id/create_card",
@@ -49,6 +46,8 @@ const router = createBrowserRouter([
       { path: "/volunteer/id/requests/:id", element: <VolunteerRequest /> },
 
       { path: "/admin", element: <AdminWorkTable /> },
+      { path: "/admin/requests", element: <AdminRequests /> },
+      { path: "/admin/requests/:id", element: <AdminRequest /> },
     ],
   },
 ]);
