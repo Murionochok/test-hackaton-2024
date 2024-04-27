@@ -21,7 +21,7 @@ export default function Main() {
               </Typography>
               <Grid container spacing={3} marginTop={1}>
                 <Grid item>
-                  <Link to={"/requests"}>
+                  <Link to={"/user/id/requests"}>
                     <Button variant="contained">Requests</Button>
                   </Link>
                 </Grid>
@@ -35,7 +35,8 @@ export default function Main() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper
-              sx={{ display: "flex", placeItems: "center", padding: "10px" }}>
+              sx={{ display: "flex", placeItems: "center", padding: "10px" }}
+            >
               <img
                 src={mainImage}
                 alt="Description of the image"

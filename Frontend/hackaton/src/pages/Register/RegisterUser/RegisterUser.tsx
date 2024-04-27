@@ -20,6 +20,9 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormRegisterValidation } from "../../../utils/hooks/useFormRegisterValidation";
 import { useNavigate } from "react-router-dom";
 import { UserFormData } from "../../../interfaces/UserInterfaces";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../../store/user/user-slice";
+import { ReduxInterface } from "../../../store";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
@@ -35,6 +38,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   };
+
+  const dispatch = useDispatch();
 
   const { setFormData, errors, validateForm } =
     useFormRegisterValidation(initialFormData);
@@ -67,13 +72,21 @@ const Register = () => {
       //   return;
       // }
       // setIsSending(false);
+      dispatch(userActions.createUser({
+        isAuthenticated: true,
+        name: formDataObj.fullName,
+        surname: formDataObj.fullName.split(" ")[1],
+        email: formDataObj.email,
+        phoneNumber: formDataObj.phoneNumber,
+      }))
+      const pathToOrg = `${location.pathname}/org`;
+      navigate(pathToOrg);
 
       navigate("/");
     } else {
       console.log("validation failed!");
     }
   };
-
   return (
     <Container
       component="main"

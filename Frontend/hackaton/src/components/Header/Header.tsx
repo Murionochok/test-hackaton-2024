@@ -46,7 +46,8 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit">
+              color="inherit"
+            >
               <MenuIcon />
             </IconButton>
             <Menu
@@ -63,7 +64,8 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={sxHeaderStyles.menu}>
+              sx={sxHeaderStyles.menu}
+            >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
@@ -81,8 +83,9 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={sxHeaderStyles.page}>
-                <NavLink to={"/requests"}>{page}</NavLink>
+                sx={sxHeaderStyles.page}
+              >
+                <NavLink to={"/user/id/requests"}>{page}</NavLink>
               </Button>
             ))}
           </Box>

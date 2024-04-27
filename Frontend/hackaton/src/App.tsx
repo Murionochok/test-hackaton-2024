@@ -10,6 +10,10 @@ import RegisterChoice from "./pages/Register/RegisterChoice/RegisterChoice";
 import RegisterUser from "./pages/Register/RegisterUser/RegisterUser";
 import RegisterVolunteer from "./pages/Register/RegisterVolunteer/RegisterVolunteer";
 import UserCreateRequestForm from "./components/UserCreateRequestForm/UserCreateRequestForm";
+import Request from "./components/Request/Request";
+import VolunteerWorkTable from "./pages/VolunteerWorkTable/VolunteerWorkTable";
+import VolunteerRequest from "./components/VolunteerRequest/VolunteerRequest";
+import AdminWorkTable from "./pages/AdminWorkTable/AdminWorkTable";
 import Login from "./pages/Login/Login";
 
 const router = createBrowserRouter([
@@ -26,14 +30,25 @@ const router = createBrowserRouter([
       { path: "/register", element: <RegisterChoice /> },
       { path: "/register/user", element: <RegisterUser /> },
       { path: "/register/volunteer", element: <RegisterVolunteer /> },
+
+      { path: "user/id/requests", element: <UserWorkTable /> },
       {
-        path: "/requests",
-        element: <UserWorkTable />,
+        path: "user/id/requests/:id",
+        element: (
+          <Request>
+            <span></span>
+            {/* костиль */}
+          </Request>
+        ),
       },
       {
-        path: "/user/create_card",
+        path: "/user/id/create_card",
         element: <UserCreateRequestForm />,
       },
+      { path: "/volunteer/id/requests", element: <VolunteerWorkTable /> },
+      { path: "/volunteer/id/requests/:id", element: <VolunteerRequest /> },
+
+      { path: "/admin", element: <AdminWorkTable /> },
     ],
   },
 ]);

@@ -10,6 +10,7 @@ export interface UserRequestData {
   date: string;
   tag: string;
   description: string;
+  state: string;
 }
 
 export interface UserFormData {
