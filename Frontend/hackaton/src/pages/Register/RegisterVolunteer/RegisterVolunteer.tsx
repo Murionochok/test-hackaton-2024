@@ -24,6 +24,8 @@ import { VolunteerFormData } from "../../../interfaces/UserInterfaces";
 import { MuiFileInput } from "mui-file-input";
 import TextDivider from "../../../components/UI/TextDivider";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { volunteerActions } from "../../../store/volunteer/volunteer-slice";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ const Register = () => {
   //   const [isSending, setIsSending] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isFileError, setIsFileError] = useState(false);
-
+  const dispatch = useDispatch();
   const handleChangeFile = (newValue: File | null) => {
     if (
       (newValue &&
@@ -58,7 +60,10 @@ const Register = () => {
 
   const { setFormData, errors, validateForm } =
     useFormRegisterValidation(initialFormData);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  const name = watch('fullName');
+  const email = watch('email');
+  const phoneNumber = watch('phoneNumber');
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -67,7 +72,7 @@ const Register = () => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = async (data) => {
+  const handleSubmitForm = async (data: any) => {
     const validation = validateForm(data);
     const isFile = file ? true : false;
 
@@ -78,6 +83,14 @@ const Register = () => {
         setFormData(data);
       } else {
         console.log(data);
+        dispatch(volunteerActions.volunteerState({
+          isAuthenticated: true,
+          isVolunteer: true,
+          name: name.split(' ')[0],
+          surname: name.split(' ')[1],
+          email: email,
+          phoneNumber: phoneNumber,
+        }))
         setFormData(data);
       }
 

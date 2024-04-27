@@ -22,10 +22,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UserFormData } from "../../../interfaces/UserInterfaces";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../../store/user/user-slice";
-import { ReduxInterface } from "../../../store";
 
 const Register = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
@@ -100,15 +99,15 @@ const Register = () => {
       //   return;
       // }
       // setIsSending(false);
-      dispatch(userActions.createUser({
+      dispatch(userActions.userState({
         isAuthenticated: true,
-        name: formDataObj.fullName,
+        name: formDataObj.fullName.split(" ")[0],
         surname: formDataObj.fullName.split(" ")[1],
         email: formDataObj.email,
         phoneNumber: formDataObj.phoneNumber,
       }))
-      const pathToOrg = `${location.pathname}/org`;
-      navigate(pathToOrg);
+      // const pathToOrg = `${location.pathname}/org`;
+      navigate('/');
     } else {
       console.log("validation failed!");
     }
