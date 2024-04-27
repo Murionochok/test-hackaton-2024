@@ -88,9 +88,11 @@ function ResponsiveAppBar() {
           </Box>
           <ThemeButton />
           <Box sx={sxHeaderStyles.actions}>
-            <Button variant="contained" sx={sxHeaderStyles.loginHide}>
-              Login
-            </Button>
+            <NavLink to={"/login"}>
+              <Button variant="contained" sx={sxHeaderStyles.loginHide}>
+                Login
+              </Button>
+            </NavLink>
             <NavLink to={"/register"}>
               <Button variant="contained">Register</Button>
             </NavLink>

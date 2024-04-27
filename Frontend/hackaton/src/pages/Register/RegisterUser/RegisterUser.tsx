@@ -50,6 +50,8 @@ const Register = () => {
   const handleSubmitForm = async (data) => {
     const validation = validateForm(data);
 
+    console.log(data);
+
     if (validation) {
       setFormData(data);
       // setIsSending(true);

@@ -10,6 +10,7 @@ import RegisterChoice from "./pages/Register/RegisterChoice/RegisterChoice";
 import RegisterUser from "./pages/Register/RegisterUser/RegisterUser";
 import RegisterVolunteer from "./pages/Register/RegisterVolunteer/RegisterVolunteer";
 import UserCreateRequestForm from "./components/UserCreateRequestForm/UserCreateRequestForm";
+import Login from "./pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      { path: "/login", element: <Login /> },
       { path: "/register", element: <RegisterChoice /> },
       { path: "/register/user", element: <RegisterUser /> },
       { path: "/register/volunteer", element: <RegisterVolunteer /> },
