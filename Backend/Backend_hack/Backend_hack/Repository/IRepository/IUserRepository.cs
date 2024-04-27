@@ -8,6 +8,6 @@ namespace Backend_hack.Repository.IRepository
         bool IsUniqueUser(string email);
         Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO);
         Task<UserDTO> RegisterUser(RegistrationUserDTO registerationUserDTO);
-        Task<UserDTO> RegisterVolunteer(RegistrationUserDTO registerationUserDTO);
+        Task<UserDTO> RegisterVolunteer(RegistrationVolunteerDTO registerationUserDTO);
     }
 }

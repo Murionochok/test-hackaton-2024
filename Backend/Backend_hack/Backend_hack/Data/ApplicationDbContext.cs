@@ -11,6 +11,7 @@ namespace Backend_hack.Data
         }
         public DbSet<RequestToDo> Requests { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<VolunteerInfo> VolunteerInfos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

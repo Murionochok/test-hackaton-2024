@@ -64,6 +64,7 @@ namespace Backend_hack.Controllers
             return _response;
         }
         [HttpGet("GetAll")]
+        [Authorize(Roles ="User")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -156,7 +157,7 @@ namespace Backend_hack.Controllers
         [Authorize(Roles ="admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateVilla(int id, [FromBody] RequestUpdateDTO updateDTO)
+        public async Task<ActionResult<APIResponse>> UpdateRequest(int id, [FromBody] RequestUpdateDTO updateDTO)
         {
             try
             {
@@ -185,9 +186,9 @@ namespace Backend_hack.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("Delete/{id:int}", Name = "DeleteVilla")]
+        [HttpDelete("Delete/{id:int}", Name = "DeleteRequest")]
         //[Authorize(Roles = "admin")]
-        public async Task<ActionResult<APIResponse>> DeleteVilla(int id)
+        public async Task<ActionResult<APIResponse>> DeleteRequest(int id)
         {
             try
             {

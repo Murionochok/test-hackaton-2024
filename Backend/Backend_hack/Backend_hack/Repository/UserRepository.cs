@@ -4,6 +4,7 @@ using Backend_hack.Models;
 using Backend_hack.Models.Dto;
 using Backend_hack.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -87,7 +88,8 @@ namespace Backend_hack.Repository
                 Surname = registerationUserDTO.Surname,
                 UserName = registerationUserDTO.Surname,
                 Email = registerationUserDTO.Email,
-                NormalizedEmail = registerationUserDTO.Email.ToUpper()
+                NormalizedEmail = registerationUserDTO.Email.ToUpper(),
+                PhoneNumber = registerationUserDTO.PhoneNumber
             };
 
             try
@@ -117,27 +119,38 @@ namespace Backend_hack.Repository
             return new UserDTO();
         }
 
-        public async Task<UserDTO> RegisterVolunteer(RegistrationUserDTO registerationUserDTO)
+        public async Task<UserDTO> RegisterVolunteer(RegistrationVolunteerDTO registerationVolunteerDTO)
         {
             ApplicationUser user = new()
             {
-                Surname = registerationUserDTO.Surname,
-                UserName = registerationUserDTO.Surname,
-                Email = registerationUserDTO.Email,
-                NormalizedEmail = registerationUserDTO.Email.ToUpper()
+                Surname = registerationVolunteerDTO.Surname,
+                UserName = registerationVolunteerDTO.Surname,
+                Email = registerationVolunteerDTO.Email,
+                NormalizedEmail = registerationVolunteerDTO.Email.ToUpper(),
+                PhoneNumber = registerationVolunteerDTO.PhoneNumber
             };
 
             try
             {
-                var result = await _userManager.CreateAsync(user, registerationUserDTO.Password);
+                var result = await _userManager.CreateAsync(user, registerationVolunteerDTO.Password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Volunteer");
                     var userToReturn = _db.ApplicationUsers
-                        .FirstOrDefault(u => u.UserName == registerationUserDTO.Surname);
+                         .FirstOrDefault(u => u.Surname == registerationVolunteerDTO.Surname);
+                    VolunteerInfo info = new()
+                    {
+                        VolunteerEmail = userToReturn.Id,
+                        ShortInfo = registerationVolunteerDTO.ShortInfo,
+                        /* formFile = registerationVolunteerDTO.InputFile*/
+                    };
+                    await _db.VolunteerInfos.AddAsync(info);
+                    await _db.SaveChangesAsync();
+ 
                     return _mapper.Map<UserDTO>(userToReturn);
 
                 }
+                
             }
             catch (Exception e)
             {

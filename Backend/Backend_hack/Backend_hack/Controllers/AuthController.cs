@@ -47,7 +47,7 @@ namespace Backend_hack.Controllers
             return Ok(_response);
         }
         [HttpPost("registerVolunteer")]
-        public async Task<IActionResult> RegisterVolunteer([FromBody] RegistrationUserDTO model)
+        public async Task<IActionResult> RegisterVolunteer([FromBody] RegistrationVolunteerDTO model)
         {
             bool ifEmailUnique = _userRepo.IsUniqueUser(model.Email);
             if (!ifEmailUnique)
@@ -57,7 +57,13 @@ namespace Backend_hack.Controllers
                 _response.ErrorMessages.Add("Email already exists");
                 return BadRequest(_response);
             }
-
+/*            RegistrationVolunteerDTO volunteer = new() 
+            {
+                Surname = model.Surname,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                Password = model.Password
+            };*/
             var user = await _userRepo.RegisterVolunteer(model);
             if (user == null)
             {
