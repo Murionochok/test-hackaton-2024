@@ -74,10 +74,10 @@ const Register = () => {
       // setIsSending(false);
       dispatch(userActions.createUser({
         isAuthenticated: true,
-        name: formDataObj.fullName,
-        surname: formDataObj.fullName.split(" ")[1],
-        email: formDataObj.email,
-        phoneNumber: formDataObj.phoneNumber,
+        name: data.fullName,
+        surname: data.fullName.split(" ")[1],
+        email: data.email,
+        phoneNumber: data.phoneNumber,
       }))
       const pathToOrg = `${location.pathname}/org`;
       navigate(pathToOrg);
