@@ -13,6 +13,7 @@ import UserCreateRequestForm from "./components/UserCreateRequestForm/UserCreate
 import Request from "./components/Request/Request";
 import VolunteerWorkTable from "./pages/VolunteerWorkTable/VolunteerWorkTable";
 import VolunteerRequest from "./components/VolunteerRequest/VolunteerRequest";
+import AdminWorkTable from "./pages/AdminWorkTable/AdminWorkTable";
 
 const router = createBrowserRouter([
   {
@@ -29,13 +30,23 @@ const router = createBrowserRouter([
       { path: "/register/volunteer", element: <RegisterVolunteer /> },
 
       { path: "user/id/requests", element: <UserWorkTable /> },
-      { path: "user/id/requests/:id", element: <Request /> },
+      {
+        path: "user/id/requests/:id",
+        element: (
+          <Request>
+            <span></span>
+            {/* костиль */}
+          </Request>
+        ),
+      },
       {
         path: "/user/id/create_card",
         element: <UserCreateRequestForm />,
       },
       { path: "/volunteer/id/requests", element: <VolunteerWorkTable /> },
       { path: "/volunteer/id/requests/:id", element: <VolunteerRequest /> },
+
+      { path: "/admin", element: <AdminWorkTable /> },
     ],
   },
 ]);

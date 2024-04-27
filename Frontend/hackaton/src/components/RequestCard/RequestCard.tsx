@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { UserRequestData } from "../../interfaces/UserInterfaces";
 
 import styles from "./RequestCard.module.scss";
-import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
 export default function RequestCard(props: UserRequestData) {
   return (
