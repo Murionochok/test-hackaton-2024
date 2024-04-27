@@ -14,6 +14,7 @@ import Request from "./components/Request/Request";
 import VolunteerWorkTable from "./pages/VolunteerWorkTable/VolunteerWorkTable";
 import VolunteerRequest from "./components/VolunteerRequest/VolunteerRequest";
 import AdminWorkTable from "./pages/AdminWorkTable/AdminWorkTable";
+import Login from "./pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      { path: "/login", element: <Login /> },
       { path: "/register", element: <RegisterChoice /> },
       { path: "/register/user", element: <RegisterUser /> },
       { path: "/register/volunteer", element: <RegisterVolunteer /> },

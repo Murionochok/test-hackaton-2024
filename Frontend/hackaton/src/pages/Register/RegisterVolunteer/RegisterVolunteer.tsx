@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -54,6 +54,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     shortInfo: "",
+    file: null,
   };
 
   const { setFormData, errors, validateForm } =
@@ -73,10 +74,10 @@ const Register = () => {
 
     if (validation && (data.shortInfo || isFile)) {
       if ((data.shortInfo && isFile) || isFile) {
-        data.shortInfo = file;
+        data.file = file;
         console.log(data);
         setFormData(data);
-      } else {
+      } else if (data.shortInfo) {
         console.log(data);
         setFormData(data);
       }
