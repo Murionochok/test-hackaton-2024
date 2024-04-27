@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 
 import {
@@ -18,21 +18,15 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormRegisterValidation } from "../../../utils/hooks/useFormRegisterValidation";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserFormData } from "../../../interfaces/UserInterfaces";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
   //   const [isSending, setIsSending] = useState(false);
-  const fullNameRef = useRef();
-
-  const phoneNumberRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
 
   const initialFormData: UserFormData = {
     fullName: "",
@@ -44,6 +38,7 @@ const Register = () => {
 
   const { setFormData, errors, validateForm } =
     useFormRegisterValidation(initialFormData);
+  const { register, handleSubmit } = useForm();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -52,36 +47,11 @@ const Register = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formDataObj = {
-      fullName:
-        fullNameRef.current && "value" in fullNameRef.current
-          ? (fullNameRef.current as HTMLInputElement).value
-          : "",
-      email:
-        emailRef.current && "value" in emailRef.current
-          ? (emailRef.current as HTMLInputElement).value
-          : "",
-      phoneNumber:
-        phoneNumberRef.current && "value" in phoneNumberRef.current
-          ? (phoneNumberRef.current as HTMLInputElement).value
-          : "",
-      password:
-        passwordRef.current && "value" in passwordRef.current
-          ? (passwordRef.current as HTMLInputElement).value
-          : "",
-      confirmPassword:
-        confirmPasswordRef.current && "value" in confirmPasswordRef.current
-          ? (confirmPasswordRef.current as HTMLInputElement).value
-          : "",
-    };
-
-    const validation = validateForm(formDataObj);
+  const handleSubmitForm = async (data) => {
+    const validation = validateForm(data);
 
     if (validation) {
-      setFormData(formDataObj);
+      setFormData(data);
       // setIsSending(true);
       // const response = await postRegisterUserData(formDataObj);
       // if (response) {
@@ -96,8 +66,7 @@ const Register = () => {
       // }
       // setIsSending(false);
 
-      const pathToOrg = `${location.pathname}/org`;
-      navigate(pathToOrg);
+      navigate("/");
     } else {
       console.log("validation failed!");
     }
@@ -120,7 +89,7 @@ const Register = () => {
           User Registration
         </Typography>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(handleSubmitForm)}>
           <Box component="div" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
@@ -130,13 +99,12 @@ const Register = () => {
                     errors.fullName.isError ? errors.fullName.message : null
                   }
                   autoComplete="fname"
-                  name="FullName"
                   required
                   fullWidth
                   id="fullName"
                   label="Full Name"
                   autoFocus
-                  inputRef={fullNameRef}
+                  {...register("fullName")}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -146,12 +114,11 @@ const Register = () => {
                     errors.email.isError ? errors.email.message : null
                   }
                   autoComplete="email"
-                  name="Email"
                   required
                   fullWidth
                   id="email"
                   label="Email"
-                  inputRef={emailRef}
+                  {...register("email")}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -165,7 +132,7 @@ const Register = () => {
                   }
                   label="Phone Number"
                   required
-                  inputRef={phoneNumberRef}
+                  {...register("phoneNumber")}
                   inputProps={{ maxLength: 16 }}
                 />
               </Grid>
@@ -179,6 +146,7 @@ const Register = () => {
                       <OutlinedInput
                         id="password"
                         type={showPassword ? "text" : "password"}
+                        {...register("password")}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -196,7 +164,6 @@ const Register = () => {
                         }
                         label="Password"
                         error={errors.password.isError}
-                        inputRef={passwordRef}
                         autoComplete="new-password"
                       />
                       {errors.password.isError && (
@@ -214,6 +181,7 @@ const Register = () => {
                       <OutlinedInput
                         id="confirm-password"
                         type={showPassword ? "text" : "password"}
+                        {...register("confirmPassword")}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -231,7 +199,6 @@ const Register = () => {
                         }
                         label="Confirm Password"
                         error={errors.confirmPassword.isError}
-                        inputRef={confirmPasswordRef}
                         autoComplete="new-password"
                       />
                       {errors.confirmPassword.isError && (
