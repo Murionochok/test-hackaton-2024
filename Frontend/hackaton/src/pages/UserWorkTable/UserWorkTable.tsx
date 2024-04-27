@@ -1,19 +1,25 @@
 import { Box, Button } from "@mui/material";
 
 import styles from "./UserWorkTable.module.scss";
-import { UserBasedCardsData } from "../../interfaces/UserInterfaces";
+import { UserRequestData } from "../../interfaces/UserInterfaces";
 import RequestCard from "../../components/RequestCard/RequestCard";
 import { Link } from "react-router-dom";
 
-const testData: UserBasedCardsData[] = [
+export const testData: UserRequestData[] = [
   {
     id: 1,
     title: "Drones_1",
+    address: "Bandera",
+    date: "23/23/2024",
+    tag: "Military",
     description: "We are making drones and need money for details.",
   },
   {
     id: 2,
-    title: "Drones_2",
+    title: "Drones_1",
+    address: "Bandera",
+    date: "23/23/2024",
+    tag: "Military",
     description: "We are making drones and need money for details.",
   },
 ];
@@ -32,6 +38,9 @@ export default function UserWorkTable() {
             key={card.id}
             id={card.id}
             title={card.title}
+            address={card.address}
+            date={card.date}
+            tag={card.tag}
             description={card.description}
           />
         ))}

@@ -10,30 +10,70 @@ import {
 } from "@mui/material";
 
 import styles from "./UserCreateRequestForm.module.scss";
-import React from "react";
+import { useRef, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { UserRequestData } from "../../interfaces/UserInterfaces";
+import { Link } from "react-router-dom";
+import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
 export default function UserRequestForm() {
-  const [tag, setTag] = React.useState("");
+  const [tag, setTag] = useState("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setTag(event.target.value);
+  const titleRef = useRef(null);
+  const addressRef = useRef(null);
+  const dateRef = useRef(null);
+  const descriptionRef = useRef(null);
+
+  const handleSubmit = () => {
+    const formDataObject: UserRequestData = {
+      id: Date.now(),
+      title:
+        titleRef.current && "value" in titleRef.current
+          ? (titleRef.current as HTMLInputElement).value
+          : "",
+      address:
+        addressRef.current && "value" in addressRef.current
+          ? (addressRef.current as HTMLInputElement).value
+          : "",
+      date:
+        dateRef.current && "value" in dateRef.current
+          ? (dateRef.current as HTMLInputElement).value
+          : "",
+      tag: tag,
+      description:
+        descriptionRef.current && "value" in descriptionRef.current
+          ? (descriptionRef.current as HTMLInputElement).value
+          : "",
+    };
+    testData.push(formDataObject);
+    console.log(formDataObject);
   };
+
   return (
     <form className={styles.Box}>
       <Box className={styles.form}>
         <Box className={styles.base}>
           <Box className={styles.Title}>
-            <TextField id="title" label="Title" variant="outlined" />
+            <TextField
+              id="title"
+              label="Title"
+              variant="outlined"
+              inputRef={titleRef}
+            />
           </Box>
           <Box className={styles.level1}>
             <Box className={styles.Address}>
-              <TextField id="address" label="Address" variant="outlined" />
+              <TextField
+                id="address"
+                label="Address"
+                variant="outlined"
+                inputRef={addressRef}
+              />
             </Box>
             <Box className={styles.Term}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Term" />
+                <DatePicker label="Term" inputRef={dateRef} />
               </LocalizationProvider>
             </Box>
             <Box className={styles.Tag}>
@@ -41,9 +81,11 @@ export default function UserRequestForm() {
                 <InputLabel id="tag-label">Tag</InputLabel>
                 <Select
                   id="tag-select"
-                  value={tag}
                   label="Tag"
-                  onChange={handleChange}
+                  value={tag}
+                  onChange={(event: SelectChangeEvent) => {
+                    setTag(event.target.value as string);
+                  }}
                 >
                   <MenuItem value="military">Military</MenuItem>
                   <MenuItem value="grocery">Grocery</MenuItem>
@@ -59,11 +101,18 @@ export default function UserRequestForm() {
               required
               multiline
               rows={7}
+              inputRef={descriptionRef}
             />
           </Box>
-          <Button variant="contained" className={styles.Submit}>
-            Submit
-          </Button>
+          <Link to="/requests">
+            <Button
+              variant="contained"
+              className={styles.Submit}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Link>
         </Box>
       </Box>
     </form>

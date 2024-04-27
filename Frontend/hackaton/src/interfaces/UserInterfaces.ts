@@ -1,6 +1,9 @@
-export interface UserBasedCardsData {
+export interface UserRequestData {
   id: number;
   title: string;
+  address: string;
+  date: string;
+  tag: string;
   description: string;
 }
 
@@ -18,5 +21,5 @@ export interface VolunteerFormData {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  shortInfo: string
+  shortInfo: string;
 }
