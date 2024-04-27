@@ -1,5 +1,10 @@
 export interface UserRequestData {
   id: number;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+  publicationDate: string;
   title: string;
   address: string;
   date: string;

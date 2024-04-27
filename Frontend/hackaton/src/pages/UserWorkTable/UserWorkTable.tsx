@@ -8,6 +8,11 @@ import { Link } from "react-router-dom";
 export const testData: UserRequestData[] = [
   {
     id: 1,
+    name: "Ivan",
+    surname: "Fedoniuk",
+    email: "test@gmail.com",
+    phone: "+380222222222",
+    publicationDate: "27.04.2024",
     title: "Drones_1",
     address: "Bandera",
     date: "23/23/2024",
@@ -16,6 +21,11 @@ export const testData: UserRequestData[] = [
   },
   {
     id: 2,
+    name: "Ivan",
+    surname: "Fedoniuk",
+    email: "test@gmail.com",
+    phone: "+380222222222",
+    publicationDate: "27.04.2024",
     title: "Drones_1",
     address: "Bandera",
     date: "23/23/2024",
@@ -37,6 +47,11 @@ export default function UserWorkTable() {
           <RequestCard
             key={card.id}
             id={card.id}
+            name={card.name}
+            surname={card.surname}
+            email={card.email}
+            phone={card.phone}
+            publicationDate={card.publicationDate}
             title={card.title}
             address={card.address}
             date={card.date}

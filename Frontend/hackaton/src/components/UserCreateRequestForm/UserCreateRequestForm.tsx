@@ -32,6 +32,11 @@ export default function UserRequestForm() {
         titleRef.current && "value" in titleRef.current
           ? (titleRef.current as HTMLInputElement).value
           : "",
+      name: "Ivan",
+      surname: "Fedoniuk",
+      email: "test@gmail.com",
+      phone: "+380222222222",
+      publicationDate: "27.04.2024",
       address:
         addressRef.current && "value" in addressRef.current
           ? (addressRef.current as HTMLInputElement).value
@@ -87,9 +92,9 @@ export default function UserRequestForm() {
                     setTag(event.target.value as string);
                   }}
                 >
-                  <MenuItem value="military">Military</MenuItem>
-                  <MenuItem value="grocery">Grocery</MenuItem>
-                  <MenuItem value="staff">Staff</MenuItem>
+                  <MenuItem value="Military">Military</MenuItem>
+                  <MenuItem value="Grocery">Grocery</MenuItem>
+                  <MenuItem value="Staff">Staff</MenuItem>
                 </Select>
               </FormControl>
             </Box>
