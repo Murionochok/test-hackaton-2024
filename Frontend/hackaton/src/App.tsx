@@ -9,6 +9,7 @@ import ErrorPage from "./pages/Error/ErrorPage";
 import RegisterChoice from "./pages/Register/RegisterChoice/RegisterChoice";
 import RegisterUser from "./pages/Register/RegisterUser/RegisterUser";
 import RegisterVolunteer from "./pages/Register/RegisterVolunteer/RegisterVolunteer";
+import UserCreateRequestForm from "./components/UserCreateRequestForm/UserCreateRequestForm";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/requests",
         element: <UserWorkTable />,
+      },
+      {
+        path: "/user/create_card",
+        element: <UserCreateRequestForm />,
       },
     ],
   },
