@@ -1,13 +1,16 @@
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 import styles from "./Request.module.scss";
-import React from "react";
 import { useParams } from "react-router-dom";
 import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
-export default function Request() {
-  const { id } = useParams();
+type ButtonProps = {
+  children: JSX.Element;
+};
 
+export default function Request({ children }: ButtonProps) {
+  const { id } = useParams();
+  console.log(children);
   const [currObj] = testData.filter((item) => item.id == Number(id));
   return (
     <form className={styles.Box}>
@@ -122,6 +125,7 @@ export default function Request() {
             />
           </Box>
           <h3>Publication date: {currObj.publicationDate}</h3>
+          {children}
         </Box>
       </Box>
     </form>

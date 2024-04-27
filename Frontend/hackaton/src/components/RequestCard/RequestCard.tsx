@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { UserRequestData } from "../../interfaces/UserInterfaces";
 
 import styles from "./RequestCard.module.scss";
+import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 
 export default function RequestCard(props: UserRequestData) {
   return (
@@ -11,6 +12,7 @@ export default function RequestCard(props: UserRequestData) {
       <Box className={styles.Id_Container}>Address:{props.address}</Box>
       <Box className={styles.Id_Container}>Date:{props.date}</Box>
       <Box className={styles.Id_Container}>Tag:{props.tag}</Box>
+      <h3>State: {props.state}</h3>
     </Box>
   );
 }

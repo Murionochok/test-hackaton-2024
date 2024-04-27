@@ -18,6 +18,7 @@ export const testData: UserRequestData[] = [
     date: "23/23/2024",
     tag: "Military",
     description: "We are making drones and need money for details.",
+    state: "sent",
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ export const testData: UserRequestData[] = [
     date: "23/23/2024",
     tag: "Military",
     description: "We are making drones and need money for details.",
+    state: "sent",
   },
 ];
 
@@ -38,13 +40,13 @@ export default function UserWorkTable() {
   return (
     <Box className={styles.Box} component="main">
       <Box className={styles.Button_Container}>
-        <Link to="/user/create_card">
+        <Link to="/user/id/create_card">
           <Button variant="contained">Create Request</Button>
         </Link>
       </Box>
       <Box>
         {testData.map((card) => (
-          <Link to={`/requests/${card.id}`}>
+          <Link to={`user/id/requests/${card.id}`}>
             <RequestCard
               key={card.id}
               id={card.id}
@@ -58,6 +60,7 @@ export default function UserWorkTable() {
               date={card.date}
               tag={card.tag}
               description={card.description}
+              state={card.state}
             />
           </Link>
         ))}

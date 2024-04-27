@@ -50,6 +50,7 @@ export default function UserRequestForm() {
         descriptionRef.current && "value" in descriptionRef.current
           ? (descriptionRef.current as HTMLInputElement).value
           : "",
+      state: "sent",
     };
     testData.push(formDataObject);
     console.log(formDataObject);
