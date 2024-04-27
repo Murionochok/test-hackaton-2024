@@ -1,5 +1,7 @@
 const nameRegex = /^[А-ЯІЇЄҐA-Z][а-яіїєґa-z]+(?: [А-ЯІЇЄҐA-Z][а-яіїєґa-z]+)+$/;
 export const phoneNumberRegex = /^\+[1-9]\d{1,14}$/;
+export const phoneNumberRegexSimple = /^d{1,14}$/;
+
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
 const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 
@@ -59,6 +61,7 @@ export const validatePhoneNumber = (
   }
 
   const isValidPhoneNumber = phoneNumberRegex.test(phoneNumber);
+  // const isValidPhoneNumberSimple = phoneNumberRegexSimple.test(phoneNumber);
   if (!isValidPhoneNumber || phoneNumber.length < 10) {
     return { isError: true, message: "Entered number is not valid" };
   }
