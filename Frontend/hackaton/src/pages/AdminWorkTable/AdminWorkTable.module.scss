@@ -1,0 +1,10 @@
+@use "../../styles/variables";
+
+.main {
+  min-height: calc(
+    100vh - (variables.$header_height + variables.$footer_height)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,60 @@
+@use "../../styles/mixins";
+
+.Box {
+  @include mixins.box;
+}
+
+.form {
+  @include mixins.form;
+}
+.base {
+  @include mixins.base;
+}
+
+.id {
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 1rem;
+}
+
+.level1 {
+  @include mixins.level1;
+}
+.level1 > div {
+  margin: 6px 0;
+}
+
+.FormControl {
+  width: 100%;
+}
+.Title {
+  @include mixins.title;
+}
+.location {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.Email,
+.Phone,
+.Address,
+.Date {
+  width: 49%;
+  div {
+    width: 100%;
+  }
+}
+
+.Description {
+  @include mixins.description;
+}
+
+.Submit {
+  @include mixins.submit;
+}
+
+.Term div {
+  padding-top: 0;
+}

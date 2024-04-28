@@ -1,0 +1,69 @@
+@mixin box {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin base {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0;
+}
+
+@mixin level1 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    div {
+      width: 100%;
+    }
+  }
+}
+
+@mixin title {
+  width: 100%;
+  div {
+    width: 100%;
+  }
+}
+
+@mixin description {
+  width: 100%;
+  height: 200px;
+  div {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@mixin submit {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  a {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  button {
+    width: 40%;
+  }
+}

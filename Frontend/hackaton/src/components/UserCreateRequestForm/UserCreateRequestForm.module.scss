@@ -1,0 +1,61 @@
+@use "../../styles/mixins";
+
+.Box {
+  @include mixins.box;
+}
+
+.form {
+  @include mixins.form;
+}
+.base {
+  @include mixins.base;
+}
+
+.level1 {
+  @include mixins.level1;
+}
+.level1 > div {
+  margin: 6px 0;
+}
+
+.Address,
+.Term,
+.Tag {
+  width: 30%;
+  div {
+    width: 100%;
+  }
+}
+
+.error {
+  fieldset {
+    border-color: #d32f2f;
+  }
+  label {
+    color: #d32f2f;
+  }
+}
+
+.Term div {
+  display: flex;
+  justify-content: end;
+  padding-top: 0;
+}
+
+.Title {
+  @include mixins.title;
+}
+.location {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.Description {
+  @include mixins.description;
+}
+
+.Submit {
+  @include mixins.submit;
+}
