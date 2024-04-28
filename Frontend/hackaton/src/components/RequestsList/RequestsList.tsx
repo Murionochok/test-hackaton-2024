@@ -6,14 +6,12 @@ import { Link } from "react-router-dom";
 interface linkPath {
   linkPath: string;
 }
-// /volunteer/id/requests/
 export default function RequestsView({ linkPath }: linkPath) {
   return (
     <Box>
       {testData.map((card) => (
-        <Link to={`${linkPath}${card.id}`}>
+        <Link key={card.id} to={`${linkPath}${card.id}`}>
           <RequestCard
-            key={card.id}
             id={card.id}
             name={card.name}
             surname={card.surname}
