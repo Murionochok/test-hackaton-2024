@@ -27,7 +27,7 @@ const sxHeaderStyles = {
   actions: {
     flexGrow: 0,
     display: "flex",
-    gap: "15px",
+    gap: { sx: "0px", sm: "15px" },
     alignItems: "center",
     justifyContent: "center",
   },
