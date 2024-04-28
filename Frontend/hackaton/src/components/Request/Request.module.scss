@@ -5,34 +5,44 @@
 
 .form {
   width: 100%;
-  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .base {
-  width: 40%;
-  height: 100%;
+  width: 100%;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin: 50px 0;
+}
+
+@media (max-width: 767px) {
+  .level1 {
+    flex-direction: column;
+  }
+  .level1 div {
+    width: 100%;
+  }
 }
 
 .id {
   font-weight: bold;
   font-size: 32px;
+  margin-bottom: 1rem;
 }
 
 .level1 {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-}
 
-.Name {
-}
-.Surname {
+  div {
+    margin: 3px 0;
+  }
 }
 .Tag {
   width: 223px;
@@ -40,17 +50,11 @@
 .FormControl {
   width: 100%;
 }
-
-#tag-label {
-}
-#tag-select {
-}
-
 .Title {
   width: 100%;
-}
-.Title div {
-  width: 100%;
+  div {
+    width: 100%;
+  }
 }
 .location {
   display: flex;
@@ -63,13 +67,10 @@
 .Phone,
 .Address,
 .Date {
-  width: 45%;
-}
-.Email div,
-.Phone div,
-.Address div,
-.Date div {
-  width: 100%;
+  width: 49%;
+  div {
+    width: 100%;
+  }
 }
 
 .Description {
@@ -82,7 +83,13 @@
 }
 
 .Submit {
+  display: flex;
+  justify-content: space-evenly;
   width: 100%;
+
+  button {
+    width: 30%;
+  }
 }
 
 .Term div {

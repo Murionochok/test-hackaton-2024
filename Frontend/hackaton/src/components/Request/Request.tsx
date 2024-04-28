@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Container, Grid, TextField } from "@mui/material";
 
 import styles from "./Request.module.scss";
 import { useParams } from "react-router-dom";
@@ -13,11 +13,11 @@ export default function Request({ children }: ButtonProps) {
   console.log(children);
   const [currObj] = testData.filter((item) => item.id == Number(id));
   return (
-    <form className={styles.Box}>
+    <Container className={styles.Box}>
       <Box className={styles.form}>
-        <Box className={styles.base}>
+        <Grid container spacing={1} className={styles.base}>
           <h1 className={styles.id}>#{currObj.id}</h1>
-          <Box className={styles.Title}>
+          <Grid item className={styles.Title}>
             <TextField
               id="title"
               label="Title"
@@ -27,9 +27,9 @@ export default function Request({ children }: ButtonProps) {
                 readOnly: true,
               }}
             />
-          </Box>
-          <Box className={styles.level1}>
-            <Box className={styles.Name}>
+          </Grid>
+          <Grid item className={styles.level1}>
+            <Grid item className={styles.Name}>
               <TextField
                 id="name"
                 label="Name"
@@ -39,8 +39,8 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-            <Box className={styles.Surname}>
+            </Grid>
+            <Grid item className={styles.Surname}>
               <TextField
                 id="surname"
                 label="Surname"
@@ -50,8 +50,8 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-            <Box className={styles.Tag}>
+            </Grid>
+            <Grid item className={styles.Tag}>
               <TextField
                 id="tag"
                 label="Tag"
@@ -61,10 +61,10 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-          </Box>
-          <Box className={styles.level1}>
-            <Box className={styles.Email}>
+            </Grid>
+          </Grid>
+          <Grid item className={styles.level1}>
+            <Grid item className={styles.Email}>
               <TextField
                 id="email"
                 label="Email"
@@ -74,8 +74,8 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-            <Box className={styles.Phone}>
+            </Grid>
+            <Grid item className={styles.Phone}>
               <TextField
                 id="phone"
                 label="Phone"
@@ -85,10 +85,10 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-          </Box>
-          <Box className={styles.level1}>
-            <Box className={styles.Address}>
+            </Grid>
+          </Grid>
+          <Grid item className={styles.level1}>
+            <Grid item className={styles.Address}>
               <TextField
                 id="address"
                 label="Address"
@@ -98,8 +98,8 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-            <Box className={styles.Date}>
+            </Grid>
+            <Grid item className={styles.Date}>
               <TextField
                 id="date"
                 label="Date"
@@ -109,25 +109,28 @@ export default function Request({ children }: ButtonProps) {
                   readOnly: true,
                 }}
               />
-            </Box>
-          </Box>
-          <Box className={styles.Description}>
-            <TextField
-              fullWidth
-              label="Detailed description"
-              required
-              multiline
-              rows={7}
-              value={currObj.description}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </Box>
-          <h3>Publication date: {currObj.publicationDate}</h3>
-          {children}
-        </Box>
+            </Grid>
+          </Grid>
+          <Grid item className={styles.level1}>
+            <Grid item className={styles.Description}>
+              <TextField
+                fullWidth
+                label="Detailed description"
+                required
+                multiline
+                rows={7}
+                value={currObj.description}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Grid item className={styles.Submit}>
+            {children}
+          </Grid>
+        </Grid>
       </Box>
-    </form>
+    </Container>
   );
 }
