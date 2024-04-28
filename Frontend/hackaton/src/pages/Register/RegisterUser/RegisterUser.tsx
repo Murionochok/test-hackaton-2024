@@ -58,25 +58,35 @@ const Register = () => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = async (data: UserFormData) => {
+  const handleSubmitForm = async (data: any) => {
     const validation = validateForm(data);
 
     console.log(data);
 
     if (validation) {
       setFormData(data);
-
-      // dispatch(postRegisterUser(data));
-      console.log("next");
-      dispatch(
-        userActions.createUser({
-          isAuthenticated: true,
-          name: data.fullName,
-          surname: data.fullName.split(" ")[1],
-          email: data.email,
-          phoneNumber: data.phoneNumber,
-        })
-      );
+      // setIsSending(true);
+      // const response = await postRegisterUserData(formDataObj);
+      // if (response) {
+      //   setIsSending(false);
+      //   setIsPostError(() => {
+      //     return {
+      //       error: true,
+      //       message: response,
+      //     };
+      //   });
+      //   return;
+      // }
+      // setIsSending(false);
+      dispatch(userActions.userState({
+        isAuthenticated: true,
+        name: data.fullName,
+        surname: data.fullName.split(" ")[1],
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      }))
+      const pathToOrg = `${location.pathname}/org`;
+      navigate(pathToOrg);
 
       // navigate("/");
     } else {

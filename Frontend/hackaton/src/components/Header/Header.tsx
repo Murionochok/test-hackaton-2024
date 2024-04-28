@@ -14,9 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import sxHeaderStyles from "./sxHeaderStyles";
 import ThemeButton from "../ThemeButton/ThemeButton";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { ReduxInterface } from "../../store";
+import { userActions } from "../../store/user/user-slice";
 
 const pages = ["Requests"];
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -30,6 +32,13 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
+  const handleLogout = () => {
+    dispatch(userActions.userState({isAuthenticated: false}));
+  }
+
+  const dispatch = useDispatch()
+  const isAuthUser = useSelector((state: ReduxInterface) => state.user.isAuthenticated)
+  console.log("isAuthUser: ", isAuthUser)
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -90,16 +99,26 @@ function ResponsiveAppBar() {
             ))}
           </Box>
           <ThemeButton />
-          <Box sx={sxHeaderStyles.actions}>
-            <NavLink to={"/login"}>
+          {isAuthUser === true ? (
+             <Box sx={sxHeaderStyles.actions}>
+              <NavLink to={"/"}>
+                <Button onClick={handleLogout} variant="contained" sx={sxHeaderStyles.loginHide}>
+                   Log out
+                </Button>
+              </NavLink>
+             </Box>
+             ) : (
+             <Box sx={sxHeaderStyles.actions}>
+                <NavLink to={"/login"}>
               <Button variant="contained" sx={sxHeaderStyles.loginHide}>
                 Login
               </Button>
-            </NavLink>
-            <NavLink to={"/register"}>
-              <Button variant="contained">Register</Button>
-            </NavLink>
-          </Box>
+              </NavLink>
+              <NavLink to={"/register"}>
+                <Button variant="contained">Register</Button>
+              </NavLink>
+             </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

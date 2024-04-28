@@ -2,8 +2,8 @@ import { Box, Button } from "@mui/material";
 
 import styles from "./UserWorkTable.module.scss";
 import { UserRequestData } from "../../interfaces/UserInterfaces";
-import RequestCard from "../../components/RequestCard/RequestCard";
 import { Link } from "react-router-dom";
+import RequestsView from "../../components/RequestsList/RequestsList";
 
 export const testData: UserRequestData[] = [
   {
@@ -44,27 +44,7 @@ export default function UserWorkTable() {
           <Button variant="contained">Create Request</Button>
         </Link>
       </Box>
-      <Box>
-        {testData.map((card) => (
-          <Link to={`user/id/requests/${card.id}`}>
-            <RequestCard
-              key={card.id}
-              id={card.id}
-              name={card.name}
-              surname={card.surname}
-              email={card.email}
-              phone={card.phone}
-              publicationDate={card.publicationDate}
-              title={card.title}
-              address={card.address}
-              date={card.date}
-              tag={card.tag}
-              description={card.description}
-              state={card.state}
-            />
-          </Link>
-        ))}
-      </Box>
+      <RequestsView linkPath="/user/id/requests/" />
     </Box>
   );
 }
