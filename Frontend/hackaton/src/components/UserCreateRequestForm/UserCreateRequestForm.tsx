@@ -7,6 +7,8 @@ import {
   SelectChangeEvent,
   TextField,
   Button,
+  Grid,
+  Container,
 } from "@mui/material";
 
 import styles from "./UserCreateRequestForm.module.scss";
@@ -57,70 +59,70 @@ export default function UserRequestForm() {
   };
 
   return (
-    <form className={styles.Box}>
-      <Box className={styles.form}>
-        <Box className={styles.base}>
-          <Box className={styles.Title}>
-            <TextField
-              id="title"
-              label="Title"
-              variant="outlined"
-              inputRef={titleRef}
-            />
-          </Box>
-          <Box className={styles.level1}>
-            <Box className={styles.Address}>
+    <Container>
+      <form className={styles.Box}>
+        <Box className={styles.form}>
+          <Grid container spacing={1} className={styles.base}>
+            <Grid item className={styles.Title}>
               <TextField
-                id="address"
-                label="Address"
+                id="title"
+                label="Title"
                 variant="outlined"
-                inputRef={addressRef}
+                inputRef={titleRef}
               />
-            </Box>
-            <Box className={styles.Term}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Term" inputRef={dateRef} />
-              </LocalizationProvider>
-            </Box>
-            <Box className={styles.Tag}>
-              <FormControl className={styles.FormControl}>
-                <InputLabel id="tag-label">Tag</InputLabel>
-                <Select
-                  id="tag-select"
-                  label="Tag"
-                  value={tag}
-                  onChange={(event: SelectChangeEvent) => {
-                    setTag(event.target.value as string);
-                  }}
-                >
-                  <MenuItem value="Military">Military</MenuItem>
-                  <MenuItem value="Grocery">Grocery</MenuItem>
-                  <MenuItem value="Staff">Staff</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-          <Box className={styles.Description}>
-            <TextField
-              fullWidth
-              label="Detailed description"
-              required
-              multiline
-              rows={7}
-              inputRef={descriptionRef}
-            />
-          </Box>
-          <Link to="/requests">
-            <Button
-              variant="contained"
-              className={styles.Submit}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Link>
+            </Grid>
+            <Grid item className={styles.level1}>
+              <Grid item className={styles.Address}>
+                <TextField
+                  id="address"
+                  label="Address"
+                  variant="outlined"
+                  inputRef={addressRef}
+                />
+              </Grid>
+              <Grid item className={styles.Term}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker label="Term" inputRef={dateRef} />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item className={styles.Tag}>
+                <FormControl className={styles.FormControl}>
+                  <InputLabel id="tag-label">Tag</InputLabel>
+                  <Select
+                    id="tag-select"
+                    label="Tag"
+                    value={tag}
+                    onChange={(event: SelectChangeEvent) => {
+                      setTag(event.target.value as string);
+                    }}
+                  >
+                    <MenuItem value="Military">Military</MenuItem>
+                    <MenuItem value="Grocery">Grocery</MenuItem>
+                    <MenuItem value="Staff">Staff</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid item className={styles.Description}>
+              <TextField
+                fullWidth
+                label="Detailed description"
+                required
+                multiline
+                rows={7}
+                inputRef={descriptionRef}
+              />
+            </Grid>
+            <Grid item className={styles.Submit}>
+              <Link to="/user/id/requests">
+                <Button variant="contained" onClick={handleSubmit}>
+                  Submit
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Box>
-    </form>
+      </form>
+    </Container>
   );
 }

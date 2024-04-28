@@ -1,31 +1,14 @@
+@use "../../styles/mixins";
+
 .Box {
-  display: flex;
-  justify-content: space-between;
+  @include mixins.box;
 }
 
 .form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include mixins.form;
 }
 .base {
-  width: 100%;
-  max-width: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 50px 0;
-}
-
-@media (max-width: 767px) {
-  .level1 {
-    flex-direction: column;
-  }
-  .level1 div {
-    width: 100%;
-  }
+  @include mixins.base;
 }
 
 .id {
@@ -35,26 +18,17 @@
 }
 
 .level1 {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include mixins.level1;
+}
+.level1 > div {
+  margin: 6px 0;
+}
 
-  div {
-    margin: 3px 0;
-  }
-}
-.Tag {
-  width: 223px;
-}
 .FormControl {
   width: 100%;
 }
 .Title {
-  width: 100%;
-  div {
-    width: 100%;
-  }
+  @include mixins.title;
 }
 .location {
   display: flex;
@@ -74,22 +48,11 @@
 }
 
 .Description {
-  width: 100%;
-  height: 200px;
-}
-.Description div {
-  width: 100%;
-  height: 100%;
+  @include mixins.description;
 }
 
 .Submit {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-
-  button {
-    width: 30%;
-  }
+  @include mixins.submit;
 }
 
 .Term div {
