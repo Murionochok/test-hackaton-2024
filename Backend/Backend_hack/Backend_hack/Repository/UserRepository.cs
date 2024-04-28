@@ -142,7 +142,7 @@ namespace Backend_hack.Repository
                     Console.WriteLine("UserID" + user.Id);
                     var info = new VolunteerInfo
                     {
-                        VolunteerEmail = userId, // Set user ID here
+                        VolunteerID = userId, // Set user ID here
                         ShortInfo = registerationVolunteerDTO.ShortInfo,
                         /* formFile = registerationVolunteerDTO.InputFile*/
                     };

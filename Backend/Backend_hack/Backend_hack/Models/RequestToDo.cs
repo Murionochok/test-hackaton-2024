@@ -33,6 +33,8 @@ namespace Backend_hack.Models
 
         [Required]
         public DateTime Deadline { get; set; }
+ /*       [Required]
+        public DateTime CreateDate { get; set; } = DateTime.Now;*/
 
         [Required]
         [Phone]
