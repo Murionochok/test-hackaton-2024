@@ -1,7 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
+export type RequestsI = {
+  fetching?: boolean;
+  creating?: boolean;
+  approving?: boolean;
+  error?: string | null;
+  success?: boolean;
+  requests?: string[];
+};
+
+const initialState: RequestsI = {
   fetching: false,
   creating: false,
   approving: false,
@@ -9,15 +18,6 @@ const initialState = {
   success: false,
   requests: [],
 };
-
-export interface RequestsI {
-  fetching?: boolean;
-  creating?: boolean;
-  approving?: boolean;
-  error?: string | null;
-  success?: boolean;
-  requests?: string[];
-}
 
 // Default request
 export const createRequest = createAsyncThunk(
@@ -128,5 +128,5 @@ const requestsSlice = createSlice({
   },
 });
 
-export const resetActions = requestsSlice.actions;
-export default requestsSlice.reducer;
+export const requestsActions = requestsSlice.actions;
+export default requestsSlice;
