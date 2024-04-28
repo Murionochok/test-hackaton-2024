@@ -99,7 +99,7 @@ namespace Backend_hack.Controllers
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    requetlist = requetlist.Where(u => u.Name.ToLower().Contains(search));
+                    requetlist = requetlist.Where(u => u.Title.ToLower().Contains(search));
                 }
 
                 var resultList = requetlist.ToList();
@@ -149,7 +149,7 @@ namespace Backend_hack.Controllers
                 requetlist = requetlist.Where(u => u.CreatedByUserId == userId);
                 if (!string.IsNullOrEmpty(search))
                 {
-                    requetlist = requetlist.Where(u => u.Name.ToLower().Contains(search));
+                    requetlist = requetlist.Where(u => u.Title.ToLower().Contains(search));
                 }
 
                 var resultList = requetlist.ToList();

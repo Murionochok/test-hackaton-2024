@@ -18,7 +18,7 @@ namespace Backend_hack.Models
 
         [Required]
         [StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [StringLength(500, MinimumLength = 10)]
@@ -26,19 +26,16 @@ namespace Backend_hack.Models
 
         [Required]
         [StringLength(100, MinimumLength = 3)]
-        public string Location { get; set; }
+        public string Address { get; set; }
 
         [Required]
-        public bool Urgency { get; set; }
-
-        [Required]
-        public DateTime Deadline { get; set; }
+        public DateTime Date { get; set; }
  /*       [Required]
         public DateTime CreateDate { get; set; } = DateTime.Now;*/
 
         [Required]
         [Phone]
-        public string UserPhone { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
 
         [Required]
         [RegularExpression("^(Weapon|Grocery|Staff)$")]
