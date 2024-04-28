@@ -38,3 +38,8 @@ export interface VolunteerFormData {
   shortInfo?: string;
   file?: File | null;
 }
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}

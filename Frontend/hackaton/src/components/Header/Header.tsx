@@ -33,12 +33,14 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    dispatch(userActions.userState({isAuthenticated: false}));
-  }
+    dispatch(userActions.userState({ user: { isAuthenticated: false } }));
+  };
 
-  const dispatch = useDispatch()
-  const isAuthUser = useSelector((state: ReduxInterface) => state.user.isAuthenticated)
-  console.log("isAuthUser: ", isAuthUser)
+  const dispatch = useDispatch();
+  const isAuthUser = useSelector(
+    (state: ReduxInterface) => state.user.user.isAuthenticated
+  );
+  console.log("isAuthUser: ", isAuthUser);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -55,8 +57,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
-            >
+              color="inherit">
               <MenuIcon />
             </IconButton>
             <Menu
@@ -73,8 +74,7 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={sxHeaderStyles.menu}
-            >
+              sx={sxHeaderStyles.menu}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
@@ -92,32 +92,34 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={sxHeaderStyles.page}
-              >
+                sx={sxHeaderStyles.page}>
                 <NavLink to={"/user/id/requests"}>{page}</NavLink>
               </Button>
             ))}
           </Box>
           <ThemeButton />
           {isAuthUser === true ? (
-             <Box sx={sxHeaderStyles.actions}>
+            <Box sx={sxHeaderStyles.actions}>
               <NavLink to={"/"}>
-                <Button onClick={handleLogout} variant="contained" sx={sxHeaderStyles.loginHide}>
-                   Log out
+                <Button
+                  onClick={handleLogout}
+                  variant="contained"
+                  sx={sxHeaderStyles.loginHide}>
+                  Log out
                 </Button>
               </NavLink>
-             </Box>
-             ) : (
-             <Box sx={sxHeaderStyles.actions}>
-                <NavLink to={"/login"}>
-              <Button variant="contained" sx={sxHeaderStyles.loginHide}>
-                Login
-              </Button>
+            </Box>
+          ) : (
+            <Box sx={sxHeaderStyles.actions}>
+              <NavLink to={"/login"}>
+                <Button variant="contained" sx={sxHeaderStyles.loginHide}>
+                  Login
+                </Button>
               </NavLink>
               <NavLink to={"/register"}>
                 <Button variant="contained">Register</Button>
               </NavLink>
-             </Box>
+            </Box>
           )}
         </Toolbar>
       </Container>
