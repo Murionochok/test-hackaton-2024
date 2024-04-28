@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Backend_hack.Services
 {
-    public class GoogleDriveService
+    public class GoogleDriveService:IGoogleDriveService
     {
         private static readonly string[] Scopes = { DriveService.Scope.Drive };
         private static readonly string ApplicationName = "Backend_hack";

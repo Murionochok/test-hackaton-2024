@@ -4,6 +4,7 @@ using Backend_hack.Data;
 using Backend_hack.Models;
 using Backend_hack.Repository;
 using Backend_hack.Repository.IRepository;
+using Backend_hack.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IGoogleDriveService,GoogleDriveService>();
 /*builder.Services.AddHttpClient<IUserRepository, UserRepository>();*/
 
 builder.Services.AddControllers();
@@ -87,11 +89,20 @@ builder.Services.AddScoped<IUserRepository>(provider =>
         provider.GetRequiredService<UserManager<ApplicationUser>>(),
         provider.GetRequiredService<RoleManager<IdentityRole>>(),
         secretKey: provider.GetService<string>(),
-        provider.GetRequiredService<IMapper>()
+        provider.GetRequiredService<IMapper>(),
+        provider.GetRequiredService<IGoogleDriveService>()
 
        )
     );
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -101,7 +112,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
