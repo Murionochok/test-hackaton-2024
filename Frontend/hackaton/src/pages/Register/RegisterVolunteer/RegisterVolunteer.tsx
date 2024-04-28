@@ -24,17 +24,25 @@ import { VolunteerFormData } from "../../../interfaces/UserInterfaces";
 import { MuiFileInput } from "mui-file-input";
 import TextDivider from "../../../components/UI/TextDivider";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { volunteerActions } from "../../../store/volunteer/volunteer-slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  postRegisterVolunteer,
+  volunteerActions,
+} from "../../../store/volunteer/volunteer-slice";
+import { ThunkDispatch, AnyAction } from "@reduxjs/toolkit";
+import { ReduxInterface } from "../../../store";
 
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
-  //   const [isSending, setIsSending] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isFileError, setIsFileError] = useState(false);
   const dispatch = useDispatch();
+  const dispatchReq: ThunkDispatch<VolunteerFormData, undefined, AnyAction> =
+    useDispatch();
+  const loading = useSelector((state: ReduxInterface) => state.user.loading);
+  const error = useSelector((state: ReduxInterface) => state.user.error);
+
   const handleChangeFile = (newValue: File | null) => {
     if (
       (newValue &&
@@ -62,9 +70,9 @@ const Register = () => {
   const { setFormData, errors, validateForm } =
     useFormRegisterValidation(initialFormData);
   const { register, handleSubmit, watch } = useForm();
-  const name = watch('fullName');
-  const email = watch('email');
-  const phoneNumber = watch('phoneNumber');
+  const name = watch("fullName");
+  const email = watch("email");
+  const phoneNumber = watch("phoneNumber");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -73,45 +81,38 @@ const Register = () => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = async (data: any) => {
+  const handleSubmitForm = async (data: VolunteerFormData) => {
     const validation = validateForm(data);
     const isFile = file ? true : false;
 
     if (validation && (data.shortInfo || isFile)) {
       if ((data.shortInfo && isFile) || isFile) {
         data.file = file;
-        console.log(data);
         setFormData(data);
       } else if (data.shortInfo) {
-        console.log(data);
-        dispatch(volunteerActions.volunteerState({
-          isAuthenticated: true,
-          isVolunteer: true,
-          name: name.split(' ')[0],
-          surname: name.split(' ')[1],
-          email: email,
-          phoneNumber: phoneNumber,
-        }))
         setFormData(data);
       }
 
-      // setIsSending(true);
-      // const response = await postRegisterUserData(formDataObj);
-      // if (response) {
-      //   setIsSending(false);
-      //   setIsPostError(() => {
-      //     return {
-      //       error: true,
-      //       message: response,
-      //     };
-      //   });
-      //   return;
-      // }
-      // setIsSending(false);
+      await dispatchReq(postRegisterVolunteer(data));
 
-      // navigate("/");
-    } else {
-      console.log("validation failed!");
+      if (error === "") {
+        dispatch(
+          volunteerActions.volunteerState({
+            loading: false,
+            user: {
+              isAuthenticated: true,
+              isVolunteer: true,
+              name: name.split(" ")[0],
+              surname: name.split(" ")[1],
+              email: email,
+              phoneNumber: phoneNumber,
+            },
+            error: "",
+          })
+        );
+      }
+
+      navigate("/");
     }
   };
 
@@ -119,16 +120,14 @@ const Register = () => {
     <Container
       component="main"
       maxWidth="sm"
-      sx={{ marginBottom: { xs: 5, sm: 10 } }}
-    >
+      sx={{ marginBottom: { xs: 5, sm: 10 } }}>
       <Box
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}
-      >
+        }}>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
         <Typography component="h1" variant="h5">
           Volunteer Registration
@@ -198,8 +197,7 @@ const Register = () => {
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
                               onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                            >
+                              edge="end">
                               {showPassword ? (
                                 <VisibilityOff />
                               ) : (
@@ -234,8 +232,7 @@ const Register = () => {
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
                               onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                            >
+                              edge="end">
                               {showPassword ? (
                                 <VisibilityOff />
                               ) : (
@@ -294,8 +291,7 @@ const Register = () => {
                       variant="body2"
                       onClick={() => {
                         navigate("/register/user");
-                      }}
-                    >
+                      }}>
                       Register As User
                     </Link>
                   </Grid>
@@ -305,39 +301,33 @@ const Register = () => {
                       variant="body2"
                       onClick={() => {
                         navigate("/login");
-                      }}
-                    >
+                      }}>
                       Sign In
                     </Link>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            {/* {isSending
-                ? ""
-                : isPostError.error && (
-                    <Box sx={{ color: "red", fontSize: "14px" }}>
-                      {isPostError.message}
-                    </Box>
-                  )} */}
+            {loading
+              ? ""
+              : error && (
+                  <Box sx={{ color: "red", fontSize: "14px" }}>{error}</Box>
+                )}
 
             <Box
               component="div"
-              style={{ position: "relative", width: "100%" }}
-            >
+              style={{ position: "relative", width: "100%" }}>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                //   disabled={isSending}
-                sx={{ mt: 2 }}
-              >
-                {/* {isSending ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Next"
-                  )} */}
-                Register
+                disabled={loading}
+                sx={{ mt: 2 }}>
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Register"
+                )}
               </Button>
             </Box>
           </Box>

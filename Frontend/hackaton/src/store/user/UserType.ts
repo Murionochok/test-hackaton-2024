@@ -1,7 +1,11 @@
 export type UserI = {
-    isAuthenticated?: boolean;
-    name?: string;
-    surname?: string;
-    email?: string;
-    phoneNumber?: string,
-}
+  loading?: boolean;
+  user: {
+    isAuthenticated?: boolean | undefined;
+    name?: string | undefined;
+    surname?: string | undefined;
+    email?: string | undefined;
+    phoneNumber?: string | undefined;
+  };
+  error?: string;
+};

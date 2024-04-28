@@ -12,14 +12,19 @@ import {
   InputLabel,
   OutlinedInput,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import {
   validateEmail,
   validatePassword,
 } from "../../utils/validation/validation";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch, AnyAction } from "@reduxjs/toolkit";
+import { LoginFormData } from "../../interfaces/UserInterfaces";
+import { postLoginUser, userActions } from "../../store/user/user-slice";
+import { ReduxInterface } from "../../store";
 
 export default function Login() {
   const {
@@ -30,6 +35,13 @@ export default function Login() {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
+  const dispatch = useDispatch();
+  const dispatchReq: ThunkDispatch<LoginFormData, undefined, AnyAction> =
+    useDispatch();
+
+  const loading = useSelector((state: ReduxInterface) => state.user.loading);
+  const error = useSelector((state: ReduxInterface) => state.user.error);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -37,7 +49,7 @@ export default function Login() {
     event.preventDefault();
   };
 
-  const handleSubmitForm = (data) => {
+  const handleSubmitForm = async (data) => {
     const isValidEmail = validateEmail(data.email);
     const isValidPassword = validatePassword(data.password);
     if (isValidEmail.isError || isValidPassword.isError) {
@@ -63,6 +75,17 @@ export default function Login() {
           type: "custom",
           message: isValidPassword.message,
         });
+      }
+    } else {
+      await dispatchReq(postLoginUser(data));
+
+      if (error === "") {
+        dispatch(
+          userActions.userState({
+            loading: false,
+            user: { isAuthenticated: true },
+          })
+        );
       }
     }
   };
@@ -130,11 +153,31 @@ export default function Login() {
                   )}
                 </FormControl>
               </Grid>
-              <ErrorMessage errors={errors} name="error" />
               <Grid item xs={12}>
-                <Button fullWidth variant="contained" type="submit">
-                  Login
-                </Button>
+                {loading
+                  ? ""
+                  : error && (
+                      <Box sx={{ color: "red", fontSize: "14px" }}>{error}</Box>
+                    )}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Box
+                  component="div"
+                  style={{ position: "relative", width: "100%" }}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={loading}
+                    sx={{ mt: 2 }}>
+                    {loading ? (
+                      <CircularProgress size={24} color="inherit" />
+                    ) : (
+                      "Login"
+                    )}
+                  </Button>
+                </Box>
               </Grid>
             </Grid>
           </Box>
