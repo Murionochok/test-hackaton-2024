@@ -65,6 +65,7 @@ namespace Backend_hack.Controllers
             }
             return _response;
         }
+        
         [HttpGet("GetAll")]
         /*        [Authorize(Roles ="User")]*/
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -113,6 +114,7 @@ namespace Backend_hack.Controllers
                 return BadRequest(_response);
             }
         }
+        
         [HttpGet("GetAllByUser")]
         [Authorize(Roles ="User")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -237,6 +239,7 @@ namespace Backend_hack.Controllers
             }
             return _response;
         }
+        
         [HttpPatch("updatestate/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -254,13 +257,14 @@ namespace Backend_hack.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("Delete/{id:int}", Name = "DeleteRequest")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("Delete/{id:int}", Name = "DeleteRequest")]
-        //[Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] 
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<APIResponse>> DeleteRequest(int id)
         {
             try

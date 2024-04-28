@@ -136,21 +136,23 @@ namespace Backend_hack.Repository
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Volunteer");
-                    var userToReturn = _db.ApplicationUsers
-                         .FirstOrDefault(u => u.Surname == registerationVolunteerDTO.Surname);
-                    VolunteerInfo info = new()
+
+                    // Access user ID after successful creation
+                    var userId = user.Id;
+                    Console.WriteLine("UserID" + user.Id);
+                    var info = new VolunteerInfo
                     {
-                        VolunteerEmail = userToReturn.Id,
+                        VolunteerEmail = userId, // Set user ID here
                         ShortInfo = registerationVolunteerDTO.ShortInfo,
                         /* formFile = registerationVolunteerDTO.InputFile*/
                     };
                     await _db.VolunteerInfos.AddAsync(info);
                     await _db.SaveChangesAsync();
- 
-                    return _mapper.Map<UserDTO>(userToReturn);
+
+                    return _mapper.Map<UserDTO>(user);
 
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -159,5 +161,7 @@ namespace Backend_hack.Repository
 
             return new UserDTO();
         }
+
+
     }
 }

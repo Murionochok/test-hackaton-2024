@@ -49,21 +49,15 @@ namespace Backend_hack.Controllers
         [HttpPost("registerVolunteer")]
         public async Task<IActionResult> RegisterVolunteer([FromBody] RegistrationVolunteerDTO model)
         {
-            bool ifEmailUnique = _userRepo.IsUniqueUser(model.Email);
-            if (!ifEmailUnique)
+            bool isEmailUnique = _userRepo.IsUniqueUser(model.Email);
+            if (!isEmailUnique)
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
                 _response.ErrorMessages.Add("Email already exists");
                 return BadRequest(_response);
             }
-/*            RegistrationVolunteerDTO volunteer = new() 
-            {
-                Surname = model.Surname,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                Password = model.Password
-            };*/
+
             var user = await _userRepo.RegisterVolunteer(model);
             if (user == null)
             {
@@ -72,6 +66,7 @@ namespace Backend_hack.Controllers
                 _response.ErrorMessages.Add("Error while registering");
                 return BadRequest(_response);
             }
+
             _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
             return Ok(_response);
