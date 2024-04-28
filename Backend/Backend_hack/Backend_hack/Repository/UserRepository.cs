@@ -39,11 +39,9 @@ namespace Backend_hack.Repository
         }
         public async Task<List<UserDTO>> GetAllVolunteers()
         {
-            /*            var usersInRole = await _userManager.GetUsersInRoleAsync("Volunteer");
-                        var response = _mapper.Map<UserDTO>(usersInRole);
-                        // Project ApplicationUser to UserDTO using AutoMapper
-                        return await response.ToListAsync();*/
-            return null;
+            var usersInRole = await _userManager.GetUsersInRoleAsync("Volunteer");
+
+            return usersInRole.AsEnumerable().Select(_mapper.Map<UserDTO>).ToList();
         }
         public bool IsUniqueUser(string email)
         {
