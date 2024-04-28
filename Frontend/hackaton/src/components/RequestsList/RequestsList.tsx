@@ -19,7 +19,7 @@ interface linkPath {
 export default function RequestsView({ linkPath }: linkPath) {
   const dispatchReq: ThunkDispatch<UserRequestData, undefined, AnyAction> =
     useDispatch();
-  const [requests, setRequests] = useState([{}]);
+  const [requests, setRequests] = useState<UserCreateRequestData>([{}]);
 
   const fetching = useSelector(
     (state: ReduxInterface) => state.requests.fetching
@@ -31,7 +31,7 @@ export default function RequestsView({ linkPath }: linkPath) {
       const userId = String(localStorage.getItem("USER_ID"));
       const response = await dispatchReq(fetchUserRequests(userId));
       if (response) {
-        // setRequests()
+        setRequests(response.payload.result);
       }
       console.log(response);
     };
@@ -43,7 +43,7 @@ export default function RequestsView({ linkPath }: linkPath) {
       <Loader open={fetching} />
       {fetching ? "" : error ? <Box>{error}</Box> : ""}
       <Box>
-        {testData.map((card) => (
+        {requests.map((card) => (
           <Link key={card.id} to={`${linkPath}${card.id}`}>
             <RequestCard
               id={card.id}

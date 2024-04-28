@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { UserCreateRequestData } from "../../interfaces/UserInterfaces";
 
 export type RequestsI = {
   fetching?: boolean;
@@ -18,17 +19,31 @@ const initialState: RequestsI = {
   success: false,
   requests: [],
 };
+const config = {
+  headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+};
 
 // Default request
 export const createRequest = createAsyncThunk(
   "requests/createRequest",
-  async (requestData: any) => {
-    const config = {
-      headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
-    };
+  async (requestData: UserCreateRequestData) => {
+    const { tag, ...restData } = requestData;
+    console.log({
+      ...restData,
+      type: tag,
+      phone: "+380333333333",
+      date: "2024-04-28T18:37:43.564Z",
+    });
     const response = await axios.post(
       `https://localhost:7115/Request/Create`,
-      { ...requestData, phone: "+380333333333" },
+      {
+        title: requestData.title,
+        description: requestData.description,
+        address: requestData.address,
+        date: "2024-04-28T18:37:43.564Z",
+        phone: "+380732225556",
+        type: requestData.tag,
+      },
       config
     );
     console.log(response.data);
@@ -40,7 +55,10 @@ export const createRequest = createAsyncThunk(
 export const fetchUserRequests = createAsyncThunk(
   "requests/fetchUserRequests",
   async (userId: string) => {
-    const response = await axios.get(`/api/requests/user/${userId}`); // Тут повинен бути власний роут
+    const response = await axios.get(
+      `https://localhost:7115/Request/GetAllByUser?filterState=0`,
+      config
+    ); // Тут повинен бути власний роут
     return response.data;
   }
 );
