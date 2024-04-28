@@ -15,9 +15,9 @@ export const useFormRequestValidation = (
   const [errors, setErrors] = useState({
     title: { isError: false, message: "" },
     address: { isError: false, message: "" },
-    term: { isError: false, message: "" },
     tag: { isError: false, message: "" },
     description: { isError: false, message: "" },
+    term: { isError: false, message: "" },
   });
 
   const validateForm = (formData: UserCreateRequestData) => {
@@ -30,10 +30,12 @@ export const useFormRequestValidation = (
     setErrors({
       title: titleError,
       address: addressError,
-      term: termError,
+
       tag: tagError,
       description: descriptionError,
+      term: termError,
     });
+    console.log(errors);
 
     return (
       !titleError.isError &&

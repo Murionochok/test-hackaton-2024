@@ -98,35 +98,35 @@ export const validateConfirmPassword = (
 };
 
 export const validateTitle = (title: string) => {
-  if (!undefined || !title.trim()) {
+  if (!title.trim()) {
     return { isError: true, message: "Fill the title field." };
   }
   return { isError: false, message: "" };
 };
 
 export const validateAddress = (address: string) => {
-  if (!undefined || !address.trim()) {
+  if (!address.trim()) {
     return { isError: true, message: "Fill the Address field." };
   }
   return { isError: false, message: "" };
 };
 
 export const validateTerm = (term: string) => {
-  if (!undefined || !term.trim()) {
+  if (!term.trim()) {
     return { isError: true, message: "Fill the Term field." };
   }
   return { isError: false, message: "" };
 };
 
 export const validateTag = (tag: string) => {
-  if (!undefined || !tag.trim()) {
+  if (!tag.trim()) {
     return { isError: true, message: "Fill the Tag field." };
   }
   return { isError: false, message: "" };
 };
 
 export const validateDescription = (description: string) => {
-  if (!undefined || !description.trim()) {
+  if (!description.trim()) {
     return { isError: true, message: "Fill the Description field." };
   }
   return { isError: false, message: "" };
