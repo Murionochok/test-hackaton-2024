@@ -13,6 +13,14 @@ export interface UserRequestData {
   state: string;
 }
 
+export interface UserCreateRequestData {
+  title: string;
+  address: string;
+  term: string;
+  tag: string;
+  description: string;
+}
+
 export interface UserFormData {
   fullName: string;
   email: string;

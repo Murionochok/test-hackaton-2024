@@ -16,8 +16,8 @@ import { useRef, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { UserRequestData } from "../../interfaces/UserInterfaces";
-import { Link } from "react-router-dom";
 import { testData } from "../../pages/UserWorkTable/UserWorkTable";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function UserRequestForm() {
   const [tag, setTag] = useState("");
@@ -26,6 +26,8 @@ export default function UserRequestForm() {
   const addressRef = useRef(null);
   const dateRef = useRef(null);
   const descriptionRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const formDataObject: UserRequestData = {
@@ -56,11 +58,12 @@ export default function UserRequestForm() {
     };
     testData.push(formDataObject);
     console.log(formDataObject);
+    navigate("/user/id/requests");
   };
 
   return (
     <Container>
-      <form className={styles.Box}>
+      <form className={styles.Box} onSubmit={handleSubmit}>
         <Box className={styles.form}>
           <Grid container spacing={1} className={styles.base}>
             <Grid item className={styles.Title}>
@@ -69,6 +72,7 @@ export default function UserRequestForm() {
                 label="Title"
                 variant="outlined"
                 inputRef={titleRef}
+                required
               />
             </Grid>
             <Grid item className={styles.level1}>
@@ -78,6 +82,7 @@ export default function UserRequestForm() {
                   label="Address"
                   variant="outlined"
                   inputRef={addressRef}
+                  required
                 />
               </Grid>
               <Grid item className={styles.Term}>
@@ -95,6 +100,7 @@ export default function UserRequestForm() {
                     onChange={(event: SelectChangeEvent) => {
                       setTag(event.target.value as string);
                     }}
+                    required
                   >
                     <MenuItem value="Military">Military</MenuItem>
                     <MenuItem value="Grocery">Grocery</MenuItem>
@@ -114,11 +120,9 @@ export default function UserRequestForm() {
               />
             </Grid>
             <Grid item className={styles.Submit}>
-              <Link to="/user/id/requests">
-                <Button variant="contained" onClick={handleSubmit}>
-                  Submit
-                </Button>
-              </Link>
+              <Button variant="contained" type="submit">
+                Submit
+              </Button>
             </Grid>
           </Grid>
         </Box>
