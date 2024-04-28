@@ -71,6 +71,7 @@ namespace Backend_hack.Controllers
             _response.IsSuccess = true;
             return Ok(_response);
         }
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
         {

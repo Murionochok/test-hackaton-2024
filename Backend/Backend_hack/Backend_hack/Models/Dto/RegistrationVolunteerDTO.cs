@@ -20,6 +20,6 @@ namespace Backend_hack.Models.Dto
         public string PhoneNumber { get; set; }
         [DefaultValue(null)]
         public string ShortInfo { get; set; }
- /*       public IFormFile InputFile { get; set; }*/
+        public IFormFile? InputFile { get; set; }
     }
 }

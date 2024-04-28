@@ -3,12 +3,18 @@ using Backend_hack.Data;
 using Backend_hack.Models;
 using Backend_hack.Models.Dto;
 using Backend_hack.Repository.IRepository;
+using Backend_hack.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Google.Apis.Drive.v3.Data;
+using System.Collections.Generic;
 
 namespace Backend_hack.Repository
 {
@@ -17,17 +23,28 @@ namespace Backend_hack.Repository
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IGoogleDriveService _googleDriveService;
         private string secretKey;
         private readonly IMapper _mapper;
-        public UserRepository(ApplicationDbContext db, IConfiguration configuration, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, string secretKey, IMapper mapper)
+        public UserRepository(ApplicationDbContext db, IConfiguration configuration,
+            UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
+            string secretKey, IMapper mapper, IGoogleDriveService googleDriveService)
         {
             _db = db;
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
+            _googleDriveService = googleDriveService;
             this.secretKey = configuration.GetValue<string>("ApiSettings:Secret");
         }
-
+        public async Task<List<UserDTO>> GetAllVolunteers()
+        {
+            /*            var usersInRole = await _userManager.GetUsersInRoleAsync("Volunteer");
+                        var response = _mapper.Map<UserDTO>(usersInRole);
+                        // Project ApplicationUser to UserDTO using AutoMapper
+                        return await response.ToListAsync();*/
+            return null;
+        }
         public bool IsUniqueUser(string email)
         {
             var user = _db.ApplicationUsers.FirstOrDefault(x => x.Email == email);
@@ -137,14 +154,26 @@ namespace Backend_hack.Repository
                 {
                     await _userManager.AddToRoleAsync(user, "Volunteer");
 
-                    // Access user ID after successful creation
                     var userId = user.Id;
-                    Console.WriteLine("UserID" + user.Id);
+
+                    string uploadedFileId = null;
+                    if (registerationVolunteerDTO.InputFile != null)
+                    {
+                        try
+                        {
+                            uploadedFileId = await _googleDriveService.UploadFileToGoogleDrive(registerationVolunteerDTO.InputFile);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error uploading file: {ex.Message}");
+                        }
+                    }
+
                     var info = new VolunteerInfo
                     {
-                        VolunteerID = userId, // Set user ID here
+                        VolunteerID = userId, 
                         ShortInfo = registerationVolunteerDTO.ShortInfo,
-                        /* formFile = registerationVolunteerDTO.InputFile*/
+                        formFile = uploadedFileId
                     };
                     await _db.VolunteerInfos.AddAsync(info);
                     await _db.SaveChangesAsync();

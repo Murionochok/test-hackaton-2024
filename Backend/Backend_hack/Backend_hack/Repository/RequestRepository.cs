@@ -34,7 +34,7 @@ namespace Backend_hack.Repository
             }
             else
             {
-                Console.WriteLine("ЛОХ");
+
             }
             return await query.ToListAsync();
         }

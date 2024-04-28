@@ -9,5 +9,6 @@ namespace Backend_hack.Repository.IRepository
         Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO);
         Task<UserDTO> RegisterUser(RegistrationUserDTO registerationUserDTO);
         Task<UserDTO> RegisterVolunteer(RegistrationVolunteerDTO registerationUserDTO);
+        Task<List<UserDTO>> GetAllVolunteers();
     }
 }
