@@ -126,7 +126,8 @@ export default function UserRequestForm() {
                 </Grid>
                 <Grid
                   item
-                  className={errors.term.isError ? styles.error : styles.Term}>
+                  className={errors.term.isError ? styles.error : styles.Term}
+                >
                   <FormControl>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker id="term" label="Term" inputRef={termRef} />
@@ -134,7 +135,8 @@ export default function UserRequestForm() {
                     {errors.term.isError && (
                       <FormHelperText
                         htmlFor="form-selector"
-                        error={!!errors.term.isError}>
+                        error={!!errors.term.isError}
+                      >
                         {errors.term.message}
                       </FormHelperText>
                     )}
@@ -150,7 +152,8 @@ export default function UserRequestForm() {
                       helpertext={
                         errors.tag.isError ? errors.tag.message : null
                       }
-                      {...register("tag")}>
+                      {...register("tag")}
+                    >
                       <MenuItem value="Military">Military</MenuItem>
                       <MenuItem value="Grocery">Grocery</MenuItem>
                       <MenuItem value="Staff">Staff</MenuItem>
@@ -158,7 +161,8 @@ export default function UserRequestForm() {
                     {errors.tag.isError && (
                       <FormHelperText
                         htmlFor="form-selector"
-                        error={!!errors.tag.isError}>
+                        error={!!errors.tag.isError}
+                      >
                         {errors.tag.message}
                       </FormHelperText>
                     )}
@@ -193,7 +197,8 @@ export default function UserRequestForm() {
                   fullWidth
                   variant="contained"
                   disabled={fetching}
-                  sx={{ mt: 2 }}>
+                  sx={{ mt: 2 }}
+                >
                   {fetching ? (
                     <CircularProgress size={24} color="inherit" />
                   ) : (

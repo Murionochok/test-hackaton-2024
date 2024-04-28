@@ -23,10 +23,15 @@ export interface RequestsI {
 export const createRequest = createAsyncThunk(
   "requests/createRequest",
   async (requestData: any) => {
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    };
     const response = await axios.post(
       `https://localhost:7115/Request/Create`,
-      requestData
+      { ...requestData, phone: "+380333333333" },
+      config
     );
+    console.log(response.data);
     return response.data;
   }
 );
