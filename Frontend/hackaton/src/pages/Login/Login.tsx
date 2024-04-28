@@ -78,14 +78,12 @@ export default function Login() {
       }
     } else {
       await dispatchReq(postLoginUser(data));
-      if (error === "") {
-        dispatch(
-          userActions.userState({
-            loading: false,
-            user: { isAuthenticated: true },
-          })
-        );
-      }
+      dispatch(
+        userActions.userState({
+          loading: false,
+          user: { isAuthenticated: true },
+        })
+      );
     }
   };
 
@@ -93,14 +91,16 @@ export default function Login() {
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ marginBottom: { xs: 5, sm: 10 } }}>
+      sx={{ marginBottom: { xs: 5, sm: 10 } }}
+    >
       <Box
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}>
+        }}
+      >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
         <Typography component="h1" variant="h5">
           Login
@@ -136,7 +136,8 @@ export default function Login() {
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
-                          edge="end">
+                          edge="end"
+                        >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
@@ -163,13 +164,15 @@ export default function Login() {
               <Grid item xs={12}>
                 <Box
                   component="div"
-                  style={{ position: "relative", width: "100%" }}>
+                  style={{ position: "relative", width: "100%" }}
+                >
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     disabled={loading}
-                    sx={{ mt: 2 }}>
+                    sx={{ mt: 2 }}
+                  >
                     {loading ? (
                       <CircularProgress size={24} color="inherit" />
                     ) : (

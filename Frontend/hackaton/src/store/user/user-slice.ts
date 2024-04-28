@@ -18,9 +18,15 @@ const initialState: UserI = {
 export const postRegisterUser = createAsyncThunk(
   "register/user",
   async (formData: UserFormData) => {
+    const postData = {
+      surname: formData.fullName.replaceAll(" ", ""),
+      email: formData.email,
+      password: formData.password,
+      phoneNumber: formData.phoneNumber,
+    };
     const response = await axios.post<UserFormData>(
-      `http://localhost:3000/register/user`,
-      formData
+      "https://localhost:7115/Auth/registerUser",
+      postData
     );
 
     return response.data; // Assuming successful registration returns data
@@ -31,10 +37,11 @@ export const postLoginUser = createAsyncThunk(
   "login",
   async (formData: LoginFormData) => {
     const response = await axios.post<LoginFormData>(
-      `http://localhost:3000/login`,
+      `https://localhost:7115/Auth/login`,
       formData
     );
-
+    console.log(response.data);
+    //response.data.results.token
     return response.data; // Assuming successful registration returns data
   }
 );

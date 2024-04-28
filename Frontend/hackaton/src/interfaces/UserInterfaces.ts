@@ -4,7 +4,6 @@ export interface UserRequestData {
   surname: string;
   email: string;
   phone: string;
-  publicationDate: string;
   title: string;
   address: string;
   date: string;
@@ -26,7 +25,7 @@ export interface UserFormData {
   email: string;
   phoneNumber: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }
 
 export interface VolunteerFormData {
