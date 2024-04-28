@@ -100,8 +100,7 @@ export default function UserRequestForm() {
                     onChange={(event: SelectChangeEvent) => {
                       setTag(event.target.value as string);
                     }}
-                    required
-                  >
+                    required>
                     <MenuItem value="Military">Military</MenuItem>
                     <MenuItem value="Grocery">Grocery</MenuItem>
                     <MenuItem value="Staff">Staff</MenuItem>
