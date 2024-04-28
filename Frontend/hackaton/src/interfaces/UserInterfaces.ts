@@ -35,8 +35,7 @@ export interface VolunteerFormData {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  shortInfo?: string;
-  file?: File | null;
+  shortInfo: string;
 }
 
 export interface LoginFormData {

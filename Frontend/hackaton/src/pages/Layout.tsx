@@ -5,6 +5,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ReduxInterface } from "../store";
 import { darkTheme, lightTheme } from "../utils/themes/themes";
+import { ModalProvider } from "../components/Modal/utils/Modal";
 
 export default function Layout() {
   const isDarkTheme = useSelector(
@@ -13,10 +14,12 @@ export default function Layout() {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <Header />
-      <Outlet />
-      <Footer />
+      <ModalProvider>
+        <CssBaseline />
+        <Header />
+        <Outlet />
+        <Footer />
+      </ModalProvider>
     </ThemeProvider>
   );
 }

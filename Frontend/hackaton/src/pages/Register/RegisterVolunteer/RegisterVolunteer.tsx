@@ -21,8 +21,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormRegisterValidation } from "../../../utils/hooks/useFormRegisterValidation";
 import { useNavigate } from "react-router-dom";
 import { VolunteerFormData } from "../../../interfaces/UserInterfaces";
-import { MuiFileInput } from "mui-file-input";
-import TextDivider from "../../../components/UI/TextDivider";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -35,27 +33,12 @@ import { ReduxInterface } from "../../../store";
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [isFileError, setIsFileError] = useState(false);
+
   const dispatch = useDispatch();
   const dispatchReq: ThunkDispatch<VolunteerFormData, undefined, AnyAction> =
     useDispatch();
   const loading = useSelector((state: ReduxInterface) => state.user.loading);
   const error = useSelector((state: ReduxInterface) => state.user.error);
-
-  const handleChangeFile = (newValue: File | null) => {
-    if (
-      (newValue &&
-        (newValue.type === "application/pdf" ||
-          newValue.type === "application/docx")) ||
-      newValue === null
-    ) {
-      setFile(newValue);
-      setIsFileError(false);
-    } else {
-      setIsFileError(true);
-    }
-  };
 
   const initialFormData: VolunteerFormData = {
     fullName: "",
@@ -64,7 +47,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     shortInfo: "",
-    file: null,
   };
 
   const { setFormData, errors, validateForm } =
@@ -83,15 +65,9 @@ const Register = () => {
 
   const handleSubmitForm = async (data: VolunteerFormData) => {
     const validation = validateForm(data);
-    const isFile = file ? true : false;
 
-    if (validation && (data.shortInfo || isFile)) {
-      if ((data.shortInfo && isFile) || isFile) {
-        data.file = file;
-        setFormData(data);
-      } else if (data.shortInfo) {
-        setFormData(data);
-      }
+    if (validation && data.shortInfo) {
+      setFormData(data);
 
       await dispatchReq(postRegisterVolunteer(data));
 
@@ -265,24 +241,6 @@ const Register = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} textAlign="center">
-                <TextDivider text={"OR"} />
-              </Grid>
-              <Grid item xs={12}>
-                <MuiFileInput
-                  fullWidth
-                  placeholder="Insert a file"
-                  value={file}
-                  onChange={handleChangeFile}
-                  inputProps={{ accept: ".pdf, .docx" }}
-                  error={isFileError} // add validation
-                  helperText={isFileError && "Incorrect format"}
-                  clearIconButtonProps={{
-                    title: "Remove",
-                    children: <CloseIcon fontSize="medium" />,
-                  }}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <Grid container>
                   <Grid item xs={3.5}>

@@ -13,16 +13,16 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({ onConfirm, title }) => {
-  const { confirmModal, closeConfirmModal } = useModal();
+  const { secondConfirmModal, closeSecondConfirmModal } = useModal();
 
   const onCloseHandler = () => {
-    closeConfirmModal();
+    closeSecondConfirmModal();
   };
 
   return (
     <Dialog
-      open={confirmModal}
-      onClose={closeConfirmModal}
+      open={secondConfirmModal}
+      onClose={closeSecondConfirmModal}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>

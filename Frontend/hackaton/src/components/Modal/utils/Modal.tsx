@@ -11,15 +11,27 @@ export function useModal() {
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [confirmModal, setConfirmModal] = useState(false);
+  const [secondConfirmModal, setSecondConfirmModal] = useState(false);
 
   const openConfirmModal = () => {
     setConfirmModal(true);
   };
   const closeConfirmModal = () => setConfirmModal(false);
+  const openSecondConfirmModal = () => {
+    setSecondConfirmModal(true);
+  };
+  const closeSecondConfirmModal = () => setSecondConfirmModal(false);
 
   return (
     <ModalContext.Provider
-      value={{ confirmModal, openConfirmModal, closeConfirmModal }}>
+      value={{
+        confirmModal,
+        secondConfirmModal,
+        openConfirmModal,
+        closeConfirmModal,
+        openSecondConfirmModal,
+        closeSecondConfirmModal,
+      }}>
       {children}
     </ModalContext.Provider>
   );

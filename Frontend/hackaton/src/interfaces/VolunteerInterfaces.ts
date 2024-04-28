@@ -5,5 +5,4 @@ export interface testVolunteerData {
   email: string;
   phone: string;
   info: string;
-  linkToCV: string;
 }
