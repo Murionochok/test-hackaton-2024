@@ -113,6 +113,56 @@ namespace Backend_hack.Controllers
                 return BadRequest(_response);
             }
         }
+        [HttpGet("GetAllByUser")]
+        [Authorize(Roles ="User")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<APIResponse>> GetRequestsByUser(
+    [FromQuery(Name = "filterState")] RequestState? state, [FromQuery] string? search)
+        {
+            try
+            {
+
+                IEnumerable<RequestToDo> requetlist;
+                var authorizationHeader = Request.Headers["Authorization"].ToString();
+                var jwtToken = authorizationHeader?.Split(' ').LastOrDefault();
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var token = tokenHandler.ReadJwtToken(jwtToken);
+
+                var userId = token.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
+                if (userId == null)
+                {
+                    return Unauthorized();
+                }
+    
+                if (state != null)
+                {
+                    requetlist = await _requestRepo.GetAllwithStateAsync(state);
+                }
+                else
+                {
+                    requetlist = await _requestRepo.GetAllAsync();
+                }
+                requetlist = requetlist.Where(u => u.CreatedByUserId == userId);
+                if (!string.IsNullOrEmpty(search))
+                {
+                    requetlist = requetlist.Where(u => u.Name.ToLower().Contains(search));
+                }
+
+                var resultList = requetlist.ToList();
+                _response.Result = _mapper.Map<List<RequestToDo>>(resultList);
+                _response.StatusCode = HttpStatusCode.OK;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                return BadRequest(_response);
+            }
+        }
+        
         [HttpPost("Create")]
         [Authorize(Roles ="User")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -130,7 +180,7 @@ namespace Backend_hack.Controllers
                     return BadRequest(createDTO);   
                 }
                 var authorizationHeader = Request.Headers["Authorization"].ToString();
-                Console.WriteLine(authorizationHeader);
+/*                Console.WriteLine(authorizationHeader);*/
                 var jwtToken = authorizationHeader?.Split(' ').LastOrDefault();
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.ReadJwtToken(jwtToken);
