@@ -1,6 +1,7 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-
-import mainImage from "../../../assets/img/orig.webp";
+import { TypeAnimation } from "react-type-animation";
+import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse";
+import Falcon from "../../../assets/img/Falcon.png";
 import { Link } from "react-router-dom";
 
 export default function Main() {
@@ -13,11 +14,29 @@ export default function Main() {
               <Typography variant="h2" gutterBottom>
                 ScriptBit
               </Typography>
+              <Box>
+                <Typography>Team members:</Typography>
+                <Typography>
+              <TypeAnimation
+      sequence={[
+        'Ivan Fedoniuk | FULLSTACK developer',
+        1000,
+        'Dmytro Skorokhodov | Frontend Developer',
+        1000,
+        'Yurii Dilai | Frontend Developer',
+        1000,
+        'Yaroslav Bychkov | Backend Developer',
+        1000
+      ]}
+      wrapper="span"
+      speed={50}
+      style={{ fontSize: '2em', display: 'inline-block' }}
+      repeat={Infinity}
+    />
+              </Typography>
+              </Box>
               <Typography variant="body1" gutterBottom maxWidth="sm">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                blanditiis tenetur unde suscipit, quam beatae rerum inventore
-                consectetur, neque doloribus, cupiditate numquam dignissimos
-                laborum fugiat deleniti? Eum quasi quidem quibusdam.
+              The ScriptBit team is a tight-knit group of skilled individuals united by a common goal: to create impactful and innovative software solutions. With a blend of creativity, expertise, and dedication, we strive to exceed expectations and drive success in every project we undertake.
               </Typography>
               <Grid container spacing={3} marginTop={1}>
                 <Grid item>
@@ -33,15 +52,17 @@ export default function Main() {
               </Grid>
             </Box>
           </Grid>
+
           <Grid item xs={12} sm={6}>
-            <Paper
-              sx={{ display: "flex", placeItems: "center", padding: "10px" }}>
-              <img
-                src={mainImage}
+          <MouseParallaxContainer globalFactorX={0.1} globalFactorY={0.1}>
+  <MouseParallaxChild factorX={0.3} factorY={0.5}>
+  <img
+                src={Falcon}
                 alt="Description of the image"
                 style={{ maxWidth: "100%", height: "auto" }}
               />
-            </Paper>
+  </MouseParallaxChild>
+</MouseParallaxContainer>
           </Grid>
         </Grid>
       </Container>
