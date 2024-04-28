@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorPage errorMessage={"wmfwkfe"} />,
+    errorElement: <ErrorPage errorMessage={"Page Not Found"} />,
     children: [
       {
         path: "/",

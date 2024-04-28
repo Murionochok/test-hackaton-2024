@@ -2,16 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { UserFormData } from "../../../../interfaces/UserInterfaces";
 
-const initialState = {
+interface InitialState {
+  registering: boolean;
+  error: string | undefined;
+  success: boolean;
+}
+
+const initialState: InitialState = {
   registering: false,
-  error: null,
+  error: "",
   success: false,
 };
 
 export const postRegisterUser = createAsyncThunk(
-  "user/register",
+  "register/user",
   async (formData: UserFormData) => {
-    const response = await axios.post<FormData>(`/api/register/`, formData);
+    const response = await axios.post<UserFormData>(`/register/user`, formData);
     return response.data; // Assuming successful registration returns data
   }
 );
@@ -22,23 +28,25 @@ const userSlice = createSlice({
   reducers: {
     resetRegistrationState(state) {
       state.registering = false;
-      state.error = null;
+      state.error = "";
       state.success = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(postRegisterUser.pending, (state) => {
+        console.log("pending");
         state.registering = true;
-        state.error = null;
+        state.error = "";
         state.success = false;
       })
       .addCase(postRegisterUser.fulfilled, (state) => {
         state.registering = false;
-        state.error = null;
+        state.error = "";
         state.success = true;
       })
       .addCase(postRegisterUser.rejected, (state, action) => {
+        console.log("rejected");
         state.registering = false;
         state.error = action.error.message;
         state.success = false;

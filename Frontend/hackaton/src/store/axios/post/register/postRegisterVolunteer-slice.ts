@@ -2,9 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { VolunteerFormData } from "../../../../interfaces/UserInterfaces";
 
-const initialState = {
+interface InitialState {
+  registering: boolean;
+  error: string | undefined;
+  success: boolean;
+}
+const initialState: InitialState = {
   registering: false,
-  error: null,
+  error: "",
   success: false,
 };
 
@@ -25,7 +30,7 @@ const userSlice = createSlice({
   reducers: {
     resetRegistrationState(state) {
       state.registering = false;
-      state.error = null;
+      state.error = "";
       state.success = false;
     },
   },
@@ -33,12 +38,12 @@ const userSlice = createSlice({
     builder
       .addCase(registerVolunteer.pending, (state) => {
         state.registering = true;
-        state.error = null;
+        state.error = "";
         state.success = false;
       })
       .addCase(registerVolunteer.fulfilled, (state) => {
         state.registering = false;
-        state.error = null;
+        state.error = "";
         state.success = true;
       })
       .addCase(registerVolunteer.rejected, (state, action) => {
@@ -49,5 +54,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { registerVolunteer, resetRegistrationState } = userSlice.actions;
+export const { resetRegistrationState } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Box from "@mui/material/Box";
 
 import {
@@ -20,16 +20,21 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormRegisterValidation } from "../../../utils/hooks/useFormRegisterValidation";
 import { useNavigate } from "react-router-dom";
 import { UserFormData } from "../../../interfaces/UserInterfaces";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../store/user/user-slice";
 import { ReduxInterface } from "../../../store";
 import { useForm } from "react-hook-form";
+import { postRegisterUser } from "../../../store/axios/post/register/postRegisterUser-slice";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  //   const [isPostError, setIsPostError] = useState({ error: false, message: "" });
-  //   const [isSending, setIsSending] = useState(false);
+  // const [isPostError, setIsPostError] = useState({ error: false, message: "" });
+  // const [isSending, setIsSending] = useState(false);
+  const registering = useSelector((state) => state.user.registering);
+  const error = useSelector((state) => state.user.error);
+  const success = useSelector((state) => state.user.success);
 
   const initialFormData: UserFormData = {
     fullName: "",
@@ -39,7 +44,8 @@ const Register = () => {
     confirmPassword: "",
   };
 
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<UserFormData, undefined, AnyAction> =
+    useDispatch();
 
   const { setFormData, errors, validateForm } =
     useFormRegisterValidation(initialFormData);
@@ -52,41 +58,33 @@ const Register = () => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = async (data) => {
+  const handleSubmitForm = async (data: UserFormData) => {
     const validation = validateForm(data);
 
     console.log(data);
 
     if (validation) {
       setFormData(data);
-      // setIsSending(true);
-      // const response = await postRegisterUserData(formDataObj);
-      // if (response) {
-      //   setIsSending(false);
-      //   setIsPostError(() => {
-      //     return {
-      //       error: true,
-      //       message: response,
-      //     };
-      //   });
-      //   return;
-      // }
-      // setIsSending(false);
-      dispatch(userActions.createUser({
-        isAuthenticated: true,
-        name: data.fullName,
-        surname: data.fullName.split(" ")[1],
-        email: data.email,
-        phoneNumber: data.phoneNumber,
-      }))
-      const pathToOrg = `${location.pathname}/org`;
-      navigate(pathToOrg);
 
-      navigate("/");
+      // dispatch(postRegisterUser(data));
+      console.log("next");
+      dispatch(
+        userActions.createUser({
+          isAuthenticated: true,
+          name: data.fullName,
+          surname: data.fullName.split(" ")[1],
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+        })
+      );
+
+      // navigate("/");
     } else {
       console.log("validation failed!");
     }
   };
+
+  console.log(registering);
   return (
     <Container
       component="main"
@@ -251,12 +249,12 @@ const Register = () => {
               </Grid>
             </Grid>
             {/* {isSending
-                ? ""
-                : isPostError.error && (
-                    <Box sx={{ color: "red", fontSize: "14px" }}>
-                      {isPostError.message}
-                    </Box>
-                  )} */}
+              ? ""
+              : isPostError.error && (
+                  <Box sx={{ color: "red", fontSize: "14px" }}>
+                    {isPostError.message}
+                  </Box>
+                )} */}
 
             <Box
               component="div"
@@ -265,14 +263,13 @@ const Register = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                //   disabled={isSending}
+                disabled={registering}
                 sx={{ mt: 2 }}>
-                {/* {isSending ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Next"
-                  )} */}
-                Register
+                {registering ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Register"
+                )}
               </Button>
             </Box>
           </Box>
