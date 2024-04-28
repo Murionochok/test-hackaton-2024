@@ -61,7 +61,6 @@ const userSlice = createSlice({
         state.error = "";
       })
       .addCase(postRegisterUser.pending, (state) => {
-        console.log("works");
         state.loading = true;
       })
       .addCase(postRegisterUser.rejected, (state, action) => {

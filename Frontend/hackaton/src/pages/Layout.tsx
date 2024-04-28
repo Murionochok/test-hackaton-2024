@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ReduxInterface } from "../store";
-import { darkTheme, lightTheme } from "../utils/themes/themes";
+import { darkTheme, theme } from "../utils/themes/themes";
 import { ModalProvider } from "../components/Modal/utils/Modal";
 
 export default function Layout() {
@@ -13,7 +13,7 @@ export default function Layout() {
   );
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : theme}>
       <ModalProvider>
         <CssBaseline />
         <Header />
