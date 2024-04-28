@@ -154,7 +154,7 @@ namespace Backend_hack.Repository
 
                     var userId = user.Id;
 
-                    string uploadedFileId = null;
+/*                    string uploadedFileId = null;
                     if (registerationVolunteerDTO.InputFile != null)
                     {
                         try
@@ -165,13 +165,13 @@ namespace Backend_hack.Repository
                         {
                             Console.WriteLine($"Error uploading file: {ex.Message}");
                         }
-                    }
+                    }*/
 
                     var info = new VolunteerInfo
                     {
                         VolunteerID = userId, 
-                        ShortInfo = registerationVolunteerDTO.ShortInfo,
-                        formFile = uploadedFileId
+                        ShortInfo = registerationVolunteerDTO.ShortInfo
+ /*                       formFile = uploadedFileId*/
                     };
                     await _db.VolunteerInfos.AddAsync(info);
                     await _db.SaveChangesAsync();
