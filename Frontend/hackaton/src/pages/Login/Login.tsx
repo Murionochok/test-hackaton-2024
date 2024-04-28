@@ -78,7 +78,6 @@ export default function Login() {
       }
     } else {
       await dispatchReq(postLoginUser(data));
-
       if (error === "") {
         dispatch(
           userActions.userState({
@@ -148,7 +147,7 @@ export default function Login() {
                   />
                   {errors.password && (
                     <Box sx={{ color: "red", fontSize: "14px" }}>
-                      {errors.password.message}
+                      {errors.password?.message}
                     </Box>
                   )}
                 </FormControl>
