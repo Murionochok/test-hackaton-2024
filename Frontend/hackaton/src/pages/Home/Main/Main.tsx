@@ -15,7 +15,7 @@ export default function Main() {
                 ScriptBit
               </Typography>
               <Box>
-                <Typography>Team members: </Typography>
+                <Typography>Team members:</Typography>
                 <Typography>
               <TypeAnimation
       sequence={[
