@@ -27,9 +27,19 @@
   }
 }
 
+.error {
+  fieldset {
+    border-color: #d32f2f;
+  }
+  label {
+    color: #d32f2f;
+  }
+}
+
 .Term div {
   display: flex;
   justify-content: end;
+  padding-top: 0;
 }
 
 .Title {
@@ -48,8 +58,4 @@
 
 .Submit {
   @include mixins.submit;
-}
-
-.Term div {
-  padding-top: 0;
 }
