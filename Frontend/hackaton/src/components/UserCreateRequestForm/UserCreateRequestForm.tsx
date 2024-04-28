@@ -9,6 +9,7 @@ import {
   Grid,
   Container,
   FormHelperText,
+  CircularProgress,
 } from "@mui/material";
 
 import styles from "./UserCreateRequestForm.module.scss";
@@ -26,8 +27,9 @@ import { useForm } from "react-hook-form";
 import { useModal } from "../Modal/utils/Modal";
 import ConfirmModal from "../Modal/ConfirmModal/ConfirmModal";
 import { ThunkDispatch, AnyAction } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRequest } from "../../store/request/request-slice";
+import { ReduxInterface } from "../../store";
 
 export default function UserRequestForm() {
   const { openConfirmModal } = useModal();
@@ -43,6 +45,10 @@ export default function UserRequestForm() {
   const { formData, setFormData, errors, validateForm } =
     useFormRequestValidation(initialFormData);
   const navigate = useNavigate();
+  const fetching = useSelector(
+    (state: ReduxInterface) => state.requests.fetching
+  );
+  const error = useSelector((state: ReduxInterface) => state.requests.error);
 
   const { register, handleSubmit } = useForm();
 
@@ -174,9 +180,25 @@ export default function UserRequestForm() {
                   {...register("description")}
                 />
               </Grid>
+              <Grid item xs={12}>
+                {fetching
+                  ? ""
+                  : error && (
+                      <Box sx={{ color: "red", fontSize: "14px" }}>{error}</Box>
+                    )}
+              </Grid>
               <Grid item className={styles.Submit}>
-                <Button variant="contained" type="submit">
-                  Submit
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={fetching}
+                  sx={{ mt: 2 }}>
+                  {fetching ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </Grid>
             </Grid>

@@ -10,6 +10,15 @@ const initialState = {
   requests: [],
 };
 
+export interface RequestsI {
+  fetching?: boolean;
+  creating?: boolean;
+  approving?: boolean;
+  error?: string | null;
+  success?: boolean;
+  requests?: string[];
+}
+
 // Default request
 export const createRequest = createAsyncThunk(
   "requests/createRequest",
@@ -114,5 +123,5 @@ const requestsSlice = createSlice({
   },
 });
 
-export const { resetState } = requestsSlice.actions;
+export const resetActions = requestsSlice.actions;
 export default requestsSlice.reducer;
