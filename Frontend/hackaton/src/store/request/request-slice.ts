@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -14,7 +14,10 @@ const initialState = {
 export const createRequest = createAsyncThunk(
   "requests/createRequest",
   async (requestData: any) => {
-    const response = await axios.post(`/api/requests`, requestData);
+    const response = await axios.post(
+      `https://localhost:7115/Request/Create`,
+      requestData
+    );
     return response.data;
   }
 );
@@ -41,7 +44,9 @@ export const fetchAdminRequests = createAsyncThunk(
 export const approveRequest = createAsyncThunk(
   "requests/approveRequest",
   async (requestId: string) => {
-    const response = await axios.patch(`/api/requests/${requestId}`, { status: "approved" }); // Тут повинен бути власний роут
+    const response = await axios.patch(`/api/requests/${requestId}`, {
+      status: "approved",
+    }); // Тут повинен бути власний роут
     return response.data;
   }
 );
@@ -63,7 +68,12 @@ const requestsSlice = createSlice({
     builder
       .addMatcher(
         (action) =>
-          [createRequest.pending, fetchUserRequests.pending, fetchAdminRequests.pending, approveRequest.pending].includes(action.type),
+          [
+            createRequest.pending,
+            fetchUserRequests.pending,
+            fetchAdminRequests.pending,
+            approveRequest.pending,
+          ].includes(action.type),
         (state) => {
           state.fetching = true;
           state.error = null;
@@ -72,7 +82,12 @@ const requestsSlice = createSlice({
       )
       .addMatcher(
         (action) =>
-          [createRequest.fulfilled, fetchUserRequests.fulfilled, fetchAdminRequests.fulfilled, approveRequest.fulfilled].includes(action.type),
+          [
+            createRequest.fulfilled,
+            fetchUserRequests.fulfilled,
+            fetchAdminRequests.fulfilled,
+            approveRequest.fulfilled,
+          ].includes(action.type),
         (state, action: PayloadAction<any>) => {
           state.fetching = false;
           state.error = null;
@@ -84,7 +99,12 @@ const requestsSlice = createSlice({
       )
       .addMatcher(
         (action) =>
-          [createRequest.rejected, fetchUserRequests.rejected, fetchAdminRequests.rejected, approveRequest.rejected].includes(action.type),
+          [
+            createRequest.rejected,
+            fetchUserRequests.rejected,
+            fetchAdminRequests.rejected,
+            approveRequest.rejected,
+          ].includes(action.type),
         (state, action: PayloadAction<string>) => {
           state.fetching = false;
           state.error = action.error.message;

@@ -77,7 +77,11 @@ export default function Login() {
         });
       }
     } else {
-      await dispatchReq(postLoginUser(data));
+      console.log(data);
+      const response = await dispatchReq(postLoginUser(data));
+      console.log(response);
+      localStorage.setItem("TOKEN", response.payload.result.token);
+
       dispatch(
         userActions.userState({
           loading: false,

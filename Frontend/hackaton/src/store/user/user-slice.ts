@@ -41,7 +41,7 @@ export const postLoginUser = createAsyncThunk(
       formData
     );
     console.log(response.data);
-    //response.data.results.token
+    // localStorage.setItem("TOKEN", response.data.results.token);
     return response.data; // Assuming successful registration returns data
   }
 );
