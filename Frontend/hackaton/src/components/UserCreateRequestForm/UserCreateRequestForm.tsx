@@ -15,13 +15,19 @@ import styles from "./UserCreateRequestForm.module.scss";
 import { useRef } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { UserCreateRequestData } from "../../interfaces/UserInterfaces";
+import {
+  LoginFormData,
+  UserCreateRequestData,
+} from "../../interfaces/UserInterfaces";
 import { testData } from "../../pages/UserWorkTable/UserWorkTable";
 import { useNavigate } from "react-router-dom";
 import { useFormRequestValidation } from "../../utils/hooks/useFormRequestValidation";
 import { useForm } from "react-hook-form";
 import { useModal } from "../Modal/utils/Modal";
 import ConfirmModal from "../Modal/ConfirmModal/ConfirmModal";
+import { ThunkDispatch, AnyAction } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { createRequest } from "../../store/request/request-slice";
 
 export default function UserRequestForm() {
   const { openConfirmModal } = useModal();
@@ -34,11 +40,17 @@ export default function UserRequestForm() {
     description: "",
   };
 
-  const { setFormData, errors, validateForm } =
+  const { formData, setFormData, errors, validateForm } =
     useFormRequestValidation(initialFormData);
   const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm();
+
+  const dispatchReq: ThunkDispatch<
+    UserCreateRequestData,
+    undefined,
+    AnyAction
+  > = useDispatch();
 
   const handleSubmitForm = (data: UserCreateRequestData) => {
     const finData = {
@@ -65,7 +77,10 @@ export default function UserRequestForm() {
 
   const handleConfirmSubmitForm = async () => {
     //handle POST request
-    navigate("/user/id/requests");
+    const response = await dispatchReq(createRequest(formData));
+    if (response) {
+      navigate("/user/id/requests");
+    }
   };
 
   return (
